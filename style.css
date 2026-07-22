@@ -61,4 +61,23 @@ nav a{
 .hero button:hover{
     background:#e8e8e8;
 }
+
+.about{
+    padding:60px 20px;
+    text-align:center;
+    background:white;
+}
+
+.about h2{
+    color:#0b6623;
+    font-size:36px;
+}
+
+.about p{
+    max-width:800px;
+    margin:auto;
+    font-size:18px;
+    line-height:1.8;
+    color:#555;
+}
     
