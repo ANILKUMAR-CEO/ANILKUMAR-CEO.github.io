@@ -98,3 +98,20 @@ window.addEventListener("load", function () {
 
     }, 1200);
 });
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+    reveals.forEach((item) => {
+        const windowHeight = window.innerHeight;
+        const revealTop = item.getBoundingClientRect().top;
+        const revealPoint = 100;
+
+        if (revealTop < windowHeight - revealPoint) {
+            item.classList.add("active");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
