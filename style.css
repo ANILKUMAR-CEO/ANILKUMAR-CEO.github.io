@@ -693,4 +693,44 @@ background:#15803d;
     50%{transform:scale(1.08);}
     100%{transform:scale(1);}
     }
-    
+
+.reviews{
+    padding:80px 20px;
+    background:#ffffff;
+    text-align:center;
+}
+
+.reviews h2{
+    font-size:40px;
+    color:#0B6623;
+    margin-bottom:40px;
+}
+
+.review-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+}
+
+.review-card{
+    width:320px;
+    background:#f5fff5;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-10px);
+}
+
+.review-card p{
+    margin:20px 0;
+    line-height:1.7;
+}
+
+.review-card h4{
+    color:#0B6623;
+}
