@@ -734,3 +734,30 @@ background:#15803d;
 .review-card h4{
     color:#0B6623;
 }
+
+.faq{
+padding:80px 20px;
+background:#fff;
+text-align:center;
+}
+
+.faq h2{
+font-size:40px;
+color:#0B6623;
+margin-bottom:40px;
+}
+
+.faq-item{
+max-width:800px;
+margin:20px auto;
+padding:20px;
+background:#f5fff5;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:left;
+}
+
+.faq-item h3{
+color:#0B6623;
+margin-bottom:10px;
+    }
