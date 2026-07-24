@@ -130,34 +130,28 @@ slides[currentSlide].classList.add("active");
 
 },3000);
 
+
+// Animated Counter
 const counters = document.querySelectorAll(".counter");
 
 counters.forEach(counter => {
-
     const updateCounter = () => {
-
         const target = +counter.getAttribute("data-target");
         const count = +counter.innerText;
 
-        const increment = Math.ceil(target / 100);
+        const increment = Math.max(1, target / 100);
 
         if (count < target) {
-
-            counter.innerText = count + increment;
-
+            counter.innerText = Math.ceil(count + increment);
             setTimeout(updateCounter, 20);
-
         } else {
-
             counter.innerText = target;
-
         }
-
     };
 
     updateCounter();
-
 });
+
 
 const reviewSlides = document.querySelectorAll(".review-slide");
 
