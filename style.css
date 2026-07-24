@@ -800,3 +800,28 @@ margin-bottom:10px;
     position:relative;
     z-index:2;
   }
+
+.review-slider{
+    max-width:700px;
+    margin:auto;
+    overflow:hidden;
+    position:relative;
+}
+
+.review-slide{
+    display:none;
+    animation:fade 0.8s ease;
+}
+
+.review-slide.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+        }
