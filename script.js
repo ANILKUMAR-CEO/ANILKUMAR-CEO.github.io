@@ -158,3 +158,17 @@ counters.forEach(counter => {
     updateCounter();
 
 });
+
+const reviewSlides = document.querySelectorAll(".review-slide");
+
+let reviewIndex = 0;
+
+setInterval(() => {
+
+reviewSlides[reviewIndex].classList.remove("active");
+
+reviewIndex = (reviewIndex + 1) % reviewSlides.length;
+
+reviewSlides[reviewIndex].classList.add("active");
+
+}, 3000);
