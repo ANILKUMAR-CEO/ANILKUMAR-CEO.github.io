@@ -792,3 +792,31 @@ counters.forEach(counter => {
     opacity:1;
     transform:translateY(0);
         }
+
+.slider{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:1;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1s ease;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.hero-overlay{
+    position:relative;
+    z-index:2;
+    }
