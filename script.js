@@ -129,3 +129,32 @@ currentSlide=(currentSlide+1)%slides.length;
 slides[currentSlide].classList.add("active");
 
 },3000);
+
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+
+    const updateCounter = () => {
+
+        const target = +counter.getAttribute("data-target");
+        const count = +counter.innerText;
+
+        const increment = Math.ceil(target / 100);
+
+        if (count < target) {
+
+            counter.innerText = count + increment;
+
+            setTimeout(updateCounter, 20);
+
+        } else {
+
+            counter.innerText = target;
+
+        }
+
+    };
+
+    updateCounter();
+
+});
