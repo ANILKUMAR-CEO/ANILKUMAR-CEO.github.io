@@ -827,3 +827,20 @@ margin-bottom:10px;
         transform:translateY(0);
     }
 }
+
+.welcome{
+    padding:120px 20px 60px;
+    text-align:center;
+    background:#ffffff;
+}
+
+.welcome h1{
+    font-size:42px;
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.welcome p{
+    font-size:20px;
+    color:#666;
+}
