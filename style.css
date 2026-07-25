@@ -27,6 +27,10 @@ body{
     align-items:center;
 }
 
+.hero-overlay{
+    text-align:center;
+    color:white;
+}
 
 .hero-overlay h1{
     font-size:60px;
