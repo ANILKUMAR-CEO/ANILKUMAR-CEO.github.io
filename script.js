@@ -172,3 +172,14 @@ reviewIndex = (reviewIndex + 1) % reviewSlides.length;
 reviewSlides[reviewIndex].classList.add("active");
 
 }, 3000);
+
+document.addEventListener("click", function(e) {
+
+    if (
+        !navLinks.contains(e.target) &&
+        !menuToggle.contains(e.target)
+    ) {
+        navLinks.classList.remove("active");
+    }
+
+});
