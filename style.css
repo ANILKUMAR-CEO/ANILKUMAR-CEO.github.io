@@ -577,12 +577,17 @@ background:#15803d;
 }
 
 .theme-btn{
-    background:none;
+    width:42px;
+    height:42px;
     border:none;
+    border-radius:50%;
+    background:#0B6623;
     color:white;
-    font-size:24px;
+    font-size:20px;
     cursor:pointer;
-    margin-left:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .dark-mode{
