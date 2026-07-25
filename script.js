@@ -25,6 +25,13 @@ menuToggle.onclick = function () {
     navLinks.classList.toggle("active");
 };
 
+// Close menu after clicking any link
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
+
 const galleryImages = document.querySelectorAll(".gallery-grid img");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
