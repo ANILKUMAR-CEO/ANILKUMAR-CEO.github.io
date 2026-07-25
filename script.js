@@ -32,27 +32,27 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     });
 });
 
-const galleryImages = document.querySelectorAll(".gallery-grid img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const closeBtn = document.querySelector(".close");
+//const galleryImages = document.querySelectorAll(".gallery-grid img");
+//const lightbox = document.getElementById("lightbox");
+//const lightboxImg = document.getElementById("lightbox-img");
+//const closeBtn = document.querySelector(".close");
 
-galleryImages.forEach(img => {
-    img.addEventListener("click", function () {
-        lightbox.style.display = "flex";
-        lightboxImg.src = this.src;
-    });
-});
+//galleryImages.forEach(img => {
+  //  img.addEventListener("click", function () {
+     //   lightbox.style.display = "flex";
+   //     lightboxImg.src = this.src;
+//    });
+//});
 
-closeBtn.addEventListener("click", function () {
-    lightbox.style.display = "none";
-});
+//closeBtn.addEventListener("click", function () {
+//    lightbox.style.display = "none";
+//});
 
-lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) {
-        lightbox.style.display = "none";
-    }
-});
+//lightbox.addEventListener("click", function (e) {
+//    if (e.target === lightbox) {
+//        lightbox.style.display = "none";
+//    }
+//});
 
 const hiddenElements = document.querySelectorAll(
     ".about, .products, .why, .gallery, .stats, .contact"
@@ -123,19 +123,18 @@ function revealOnScroll() {
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
 
-const slides=document.querySelectorAll(".slide");
+//const slides=document.querySelectorAll(".slide");
+//let currentSlide=0;
 
-let currentSlide=0;
+//setInterval(()=>{
 
-setInterval(()=>{
+//slides[currentSlide].classList.remove("active");
 
-slides[currentSlide].classList.remove("active");
+//currentSlide=(currentSlide+1)%slides.length;
 
-currentSlide=(currentSlide+1)%slides.length;
+//slides[currentSlide].classList.add("active");
 
-slides[currentSlide].classList.add("active");
-
-},3000);
+//},3000);
 
 
 // Animated Counter
