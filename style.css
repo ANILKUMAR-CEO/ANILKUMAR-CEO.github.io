@@ -11,7 +11,7 @@ html{
 
 body{
     background:#f5fff5;
-    padding-top:80px;
+    padding-top:75px;
 
 }
 
@@ -91,54 +91,6 @@ p{
     color:white;
     text-decoration:none;
     border-radius:8px;
-}
-
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 40px;
-    background:rgba(11,102,35,0.90);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    color:white;
-    z-index:1000;
-    box-shadow:0 4px 15px rgba(0,0,0,.2);
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:bold;
-}
-
-.logo img{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-}
-
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:20px;
-}
-
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    font-size:16px;
-    transition:0.3s;
-}
-
-.nav-links a:hover{
-    color:#ffd700;
 }
 
 .menu-toggle{
@@ -574,20 +526,6 @@ background:#15803d;
 .show{
     opacity:1;
     transform:translateY(0);
-}
-
-.theme-btn{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:50%;
-    background:#0B6623;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 
 .dark-mode{
