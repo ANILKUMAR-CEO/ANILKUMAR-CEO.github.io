@@ -1013,3 +1013,35 @@ margin-bottom:10px;
 .menu-toggle{
     color:#0B6623;
 }
+
+/* Mobile Menu Fix */
+
+@media (max-width:768px){
+
+.menu-toggle{
+    display:block;
+    cursor:pointer;
+    font-size:30px;
+}
+
+.nav-links{
+    display:none;
+}
+
+.nav-links.active{
+    display:flex !important;
+}
+
+}
+
+@media (min-width:769px){
+
+.nav-links{
+    display:flex !important;
+}
+
+.menu-toggle{
+    display:none;
+}
+
+}
