@@ -156,6 +156,7 @@ gap:30px;
 }
 
 .product-card{
+position:relative;
 background:white;
 width:280px;
 padding:20px;
@@ -1028,19 +1029,4 @@ margin-bottom:10px;
     margin:10px 0;
 }
 
-.product-card{
-    position:relative;
-}
 
-.badge{
-    position:absolute;
-    top:15px;
-    left:15px;
-    background:#ff3b30;
-    color:white;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-    z-index:2;
-}
