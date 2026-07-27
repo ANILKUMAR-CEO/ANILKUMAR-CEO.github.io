@@ -338,8 +338,6 @@ console.log(cart);
 
 function updateCart(){
 
-function updateCart(){
-
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
 
