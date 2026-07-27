@@ -268,3 +268,23 @@ search.addEventListener("keyup", function(){
     });
 
 });
+
+function filterProducts(type){
+
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach(card=>{
+
+        if(type==="all"){
+            card.style.display="block";
+        }
+        else if(card.innerText.toLowerCase().includes(type)){
+            card.style.display="block";
+        }
+        else{
+            card.style.display="none";
+        }
+
+    });
+
+}
