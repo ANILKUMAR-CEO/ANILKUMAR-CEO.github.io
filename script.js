@@ -338,6 +338,8 @@ console.log(cart);
 
 function updateCart(){
 
+function updateCart(){
+
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
 
@@ -345,19 +347,29 @@ cartItems.innerHTML = "";
 
 let total = 0;
 
-cart.forEach((item)=>{
+cart.forEach((item, index)=>{
 
-total += item.price;
+    total += item.price;
 
-cartItems.innerHTML += `
-<div style="padding:12px;border-bottom:1px solid #ddd;">
-<b>${item.name}</b><br>
-₹${item.price}
-</div>
-`;
+    cartItems.innerHTML += `
+    <div style="padding:12px;border-bottom:1px solid #ddd;">
+        <b>${item.name}</b><br>
+        ₹${item.price}<br><br>
+
+        <button onclick="removeItem(${index})">
+            ❌ Remove
+        </button>
+
+    </div>
+    `;
 
 });
 
 cartTotal.innerText = total;
 
-       }
+}
+
+function removeItem(index){
+    cart.splice(index,1);
+    updateCart();
+}
