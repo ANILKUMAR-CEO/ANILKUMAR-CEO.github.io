@@ -993,3 +993,26 @@ margin-bottom:10px;
 .search-box:focus{
     box-shadow:0 0 15px rgba(11,102,35,.3);
 }
+
+.filter-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.filter-buttons button{
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    background:#0B6623;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.filter-buttons button:hover{
+    background:#15803d;
+    transform:scale(1.05);
+    }
