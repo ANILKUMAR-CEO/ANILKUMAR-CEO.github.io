@@ -1021,3 +1021,9 @@ margin-bottom:10px;
     background:#15803d;
     transform:scale(1.05);
     }
+
+.rating{
+    color:#FFD700;
+    font-size:20px;
+    margin:10px 0;
+}
