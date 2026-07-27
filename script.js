@@ -345,7 +345,7 @@ cartItems.innerHTML = "";
 
 let total = 0;
 
-cart.forEach((item, index)=>{
+cart.forEach((item, index) => {
 
     total += item.price;
 
