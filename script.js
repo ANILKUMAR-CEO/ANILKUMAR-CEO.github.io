@@ -320,3 +320,25 @@ msg+="Total = ₹"+total;
 alert(msg);
 
 }
+
+// ===== AMAZON STYLE SIDE CART =====
+
+const cartPanel = document.getElementById("cartPanel");
+const cartOverlay = document.getElementById("cartOverlay");
+
+function viewCart(){
+    cartPanel.classList.add("active");
+    cartOverlay.classList.add("active");
+}
+
+function closeCart(){
+    cartPanel.classList.remove("active");
+    cartOverlay.classList.remove("active");
+}
+
+// ESC key press chesthe cart close
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        closeCart();
+    }
+});
