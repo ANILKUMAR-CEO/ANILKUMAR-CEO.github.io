@@ -185,13 +185,44 @@ document.addEventListener("click", function(e) {
 });
 
 const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
+
 let currentSlide = 0;
 
-setInterval(() => {
-    slides[currentSlide].classList.remove("active");
+function showSlide(index){
+
+    slides.forEach(slide => slide.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
+}
+
+next.onclick = () => {
     currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add("active");
-}, 3000);
+    showSlide(currentSlide);
+};
+
+prev.onclick = () => {
+    currentSlide =
+    (currentSlide - 1 + slides.length) % slides.length;
+
+    showSlide(currentSlide);
+};
+
+dots.forEach((dot,index)=>{
+    dot.onclick = ()=>{
+        currentSlide = index;
+        showSlide(currentSlide);
+    };
+});
+
+setInterval(()=>{
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+},3000);
 
 // Gallery Lightbox
 
