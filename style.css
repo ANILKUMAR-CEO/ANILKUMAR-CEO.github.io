@@ -1030,3 +1030,21 @@ margin-bottom:10px;
 }
 
 
+.cart-btn{
+    width:100%;
+    padding:14px;
+    margin:15px 0;
+    background:#ff9800;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.cart-btn:hover{
+    background:#e68900;
+    transform:scale(1.03);
+}
