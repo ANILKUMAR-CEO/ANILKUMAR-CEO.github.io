@@ -977,3 +977,19 @@ margin-bottom:10px;
     opacity:1;
     background:#0B6623;
 }
+
+.search-box{
+    width:90%;
+    max-width:400px;
+    padding:15px 20px;
+    margin:20px auto 40px;
+    display:block;
+    border:2px solid #0B6623;
+    border-radius:30px;
+    font-size:18px;
+    outline:none;
+}
+
+.search-box:focus{
+    box-shadow:0 0 15px rgba(11,102,35,.3);
+}
