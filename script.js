@@ -342,3 +342,56 @@ document.addEventListener("keydown", function(e){
         closeCart();
     }
 });
+
+let cart = [];
+
+document.querySelectorAll(".cart-btn").forEach((btn) => {
+
+btn.addEventListener("click", function () {
+
+const card = this.closest(".product-card");
+
+const name = card.querySelector("h3").innerText;
+
+const price = parseInt(
+card.querySelector("h4").innerText.replace(/[^\d]/g, "")
+);
+
+cart.push({
+name,
+price
+});
+
+updateCart();
+
+viewCart();
+
+});
+
+});
+
+function updateCart(){
+
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+
+cartItems.innerHTML = "";
+
+let total = 0;
+
+cart.forEach((item)=>{
+
+total += item.price;
+
+cartItems.innerHTML += `
+<div style="padding:12px;border-bottom:1px solid #ddd;">
+<b>${item.name}</b><br>
+₹${item.price}
+</div>
+`;
+
+});
+
+cartTotal.innerText = total;
+
+       }
