@@ -362,7 +362,6 @@ cart.forEach((item, index)=>{
 
     </div>
     `;
-
 });
 
 cartTotal.innerText = total;
