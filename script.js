@@ -330,7 +330,6 @@ cart.push({
 });
 
 updateCart();
-viewCart();
 
 console.log(cart);
 });
