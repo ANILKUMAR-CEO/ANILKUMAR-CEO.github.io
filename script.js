@@ -298,3 +298,25 @@ function addToCart(name, price) {
 
     console.log(cart);
 }
+
+function viewCart(){
+
+if(cart.length===0){
+alert("Your cart is empty!");
+return;
+}
+
+let msg="🛒 YOUR CART\n\n";
+let total=0;
+
+cart.forEach((item,index)=>{
+msg+=(index+1)+". "+item.name+" - ₹"+item.price+"\n";
+total+=item.price;
+});
+
+msg+="\n-----------------\n";
+msg+="Total = ₹"+total;
+
+alert(msg);
+
+}
