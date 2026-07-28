@@ -335,11 +335,17 @@ const existing = cart.find(item => item.name === name);
 if(existing){
     existing.qty++;
 }else{
-    cart.push({
-        name,
-        price,
-        qty:1
-    });
+
+    const qty = parseInt(card.querySelector(".qty-value").innerText);
+
+const qty = parseInt(card.querySelector(".qty-value").innerText);
+    
+cart.push({
+    name,
+    price,
+    qty: qty
+});
+    
 }
 
 updateCart();
