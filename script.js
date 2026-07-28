@@ -316,7 +316,7 @@ document.addEventListener("keydown", function(e){
     }
 });
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 document.querySelectorAll(".cart-btn").forEach((btn) => {
 
