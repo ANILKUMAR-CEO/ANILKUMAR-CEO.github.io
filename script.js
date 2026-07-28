@@ -359,12 +359,19 @@ cart.forEach((item, index) => {
     cartItems.innerHTML += `
     <div style="padding:12px;border-bottom:1px solid #ddd;">
         <b>${item.name}</b><br>
-        ₹${item.price}<br><br>
 
-        <button onclick="removeItem(${index})">
-            ❌ Remove
-        </button>
+₹${item.price} × ${item.qty} = ₹${item.price * item.qty}
+<br><br>
 
+<button onclick="decreaseQty(${index})">➖</button>
+
+<span style="margin:0 10px;font-weight:bold;">
+    ${item.qty}
+</span>
+
+<button onclick="increaseQty(${index})">➕</button>
+
+<button onclick="removeItem(${index})">❌ Remove</button>
     </div>
     `;
 });
@@ -375,5 +382,19 @@ cartTotal.innerText = total;
 
 function removeItem(index){
     cart.splice(index,1);
+    updateCart();
+}
+
+function increaseQty(index){
+    cart[index].qty++;
+    updateCart();
+}
+
+function decreaseQty(index){
+    if(cart[index].qty > 1){
+        cart[index].qty--;
+    }else{
+        cart.splice(index,1);
+    }
     updateCart();
 }
