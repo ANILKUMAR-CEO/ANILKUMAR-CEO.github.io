@@ -408,3 +408,5 @@ function decreaseQty(index){
     }
     updateCart();
              }
+
+updateCart();
