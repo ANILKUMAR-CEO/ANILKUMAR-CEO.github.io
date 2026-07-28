@@ -397,4 +397,4 @@ function decreaseQty(index){
         cart.splice(index,1);
     }
     updateCart();
-}
+             }
