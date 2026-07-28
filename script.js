@@ -371,6 +371,8 @@ cart.forEach((item, index) => {
 
 <button onclick="increaseQty(${index})">➕</button>
 
+&nbsp;&nbsp;  
+
 <button onclick="removeItem(${index})">❌ Remove</button>
     </div>
     `;
