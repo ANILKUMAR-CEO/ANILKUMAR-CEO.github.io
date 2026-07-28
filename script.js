@@ -383,6 +383,7 @@ cart.forEach((item, index) => {
 });
 
 cartTotal.innerText = total;
+    
  document.getElementById("cartCount").innerText =
 cart.reduce((sum, item) => sum + item.qty, 0);   
     
@@ -407,6 +408,6 @@ function decreaseQty(index){
         cart.splice(index,1);
     }
     updateCart();
-             }
+  }
 
 updateCart();
