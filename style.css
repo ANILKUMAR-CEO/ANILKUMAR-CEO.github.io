@@ -1062,6 +1062,26 @@ margin-bottom:10px;
     transform:scale(1.03);
 }
 
+.details-btn{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    background:#0B6623;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.details-btn:hover{
+    background:#15803d;
+    transform:scale(1.03);
+}
+
 .cart-panel{
 position:fixed;
 top:0;
