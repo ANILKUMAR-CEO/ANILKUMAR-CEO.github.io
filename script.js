@@ -385,6 +385,8 @@ cart.forEach((item, index) => {
 cartTotal.innerText = total;
  document.getElementById("cartCount").innerText =
 cart.reduce((sum, item) => sum + item.qty, 0);   
+    
+  localStorage.setItem("cart", JSON.stringify(cart));  
 
 }
 
