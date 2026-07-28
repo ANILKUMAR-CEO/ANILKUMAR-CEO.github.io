@@ -355,8 +355,10 @@ card.querySelector("h4").innerText.replace(/[^\d]/g, "")
 
 const existing = cart.find(item => item.name === name);
 
+    const qty = parseInt(card.querySelector(".qty-value").innerText);
+    
 if(existing){
-    existing.qty++;
+    existing.qty += qty;
 }else{
 
     const qty = parseInt(card.querySelector(".qty-value").innerText);
