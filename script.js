@@ -293,7 +293,13 @@ function filterProducts(type){
 const cartPanel = document.getElementById("cartPanel");
 const cartOverlay = document.getElementById("cartOverlay");
 
-function viewCart(){
+function viewCart() {
+
+    console.log("Cart button clicked");
+
+    const cartPanel = document.getElementById("cartPanel");
+    const cartOverlay = document.getElementById("cartOverlay");
+
     cartPanel.classList.add("active");
     cartOverlay.classList.add("active");
 }
