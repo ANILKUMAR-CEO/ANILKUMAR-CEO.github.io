@@ -318,7 +318,28 @@ document.addEventListener("keydown", function(e){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+document.querySelectorAll(".product-card").forEach(card => {
 
+    const minus = card.querySelector(".qty-minus");
+    const plus = card.querySelector(".qty-plus");
+    const value = card.querySelector(".qty-value");
+
+    plus.onclick = function(e){
+        e.stopPropagation();
+        value.innerText = parseInt(value.innerText) + 1;
+    };
+
+    minus.onclick = function(e){
+        e.stopPropagation();
+
+        let qty = parseInt(value.innerText);
+
+        if(qty > 1){
+            value.innerText = qty - 1;
+        }
+    };
+
+});
 
 document.querySelectorAll(".cart-btn").forEach((btn) => {
 
