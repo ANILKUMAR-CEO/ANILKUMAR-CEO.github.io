@@ -324,17 +324,24 @@ const price = parseInt(
 card.querySelector("h4").innerText.replace(/[^\d]/g, "")
 );
 
-cart.push({
-    name,
-    price
-});
+const existing = cart.find(item => item.name === name);
+
+if(existing){
+    existing.qty++;
+}else{
+    cart.push({
+        name,
+        price,
+        qty:1
+    });
+}
 
 updateCart();
 
 console.log(cart);
-});
 
 });
+    });
 
 function updateCart(){
 
@@ -347,7 +354,7 @@ let total = 0;
 
 cart.forEach((item, index) => {
 
-    total += item.price;
+    total += item.price * item.qty;
 
     cartItems.innerHTML += `
     <div style="padding:12px;border-bottom:1px solid #ddd;">
