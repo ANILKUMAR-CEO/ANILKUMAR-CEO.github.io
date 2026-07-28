@@ -410,6 +410,4 @@ function decreaseQty(index){
     updateCart();
   }
 
-window.addEventListener("load", function () {
-    updateCart();
-});
+updateCart();
