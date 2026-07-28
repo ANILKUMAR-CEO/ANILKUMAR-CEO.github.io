@@ -318,6 +318,8 @@ document.addEventListener("keydown", function(e){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+
+
 document.querySelectorAll(".cart-btn").forEach((btn) => {
 
 btn.addEventListener("click", function () {
@@ -337,8 +339,6 @@ if(existing){
 }else{
 
     const qty = parseInt(card.querySelector(".qty-value").innerText);
-
-const qty = parseInt(card.querySelector(".qty-value").innerText);
     
 cart.push({
     name,
