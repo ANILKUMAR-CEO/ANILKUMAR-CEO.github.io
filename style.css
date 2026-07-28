@@ -1117,3 +1117,13 @@ z-index:99998;
 .cart-overlay.active{
 display:block;
 }
+
+#cartCount{
+    background:red;
+    color:white;
+    border-radius:50%;
+    padding:2px 8px;
+    font-size:12px;
+    margin-left:5px;
+    font-weight:bold;
+    }
