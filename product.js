@@ -20,12 +20,11 @@ const products = {
     price: "₹700 / Litre"
   },
 
-  butter: {
-    name: "Fresh Butter",
-    image: "images/butter.png",
-    desc: "Pure Farm Fresh Butter.",
-    price: "₹500 / Kg"
-  },
+  //  butter: {
+ //   name: "Fresh Butter",
+//    image: "images/butter.png",
+  //    desc: "Pure Farm Fresh Butter.",
+  //    price: "₹500 / Kg"//  },
 
   paneer: {
     name: "Fresh Paneer",
