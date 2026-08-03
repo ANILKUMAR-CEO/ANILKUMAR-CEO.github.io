@@ -544,3 +544,27 @@ function closeCart(){
     document.getElementById("cartOverlay").classList.remove("active");
 
 }
+
+document.querySelectorAll(".qty-box").forEach(box=>{
+
+const minus=box.querySelector(".qty-minus");
+const plus=box.querySelector(".qty-plus");
+const value=box.querySelector(".qty-value");
+
+plus.onclick=()=>{
+
+value.innerHTML=parseInt(value.innerHTML)+1;
+
+};
+
+minus.onclick=()=>{
+
+if(parseInt(value.innerHTML)>1){
+
+value.innerHTML=parseInt(value.innerHTML)-1;
+
+}
+
+};
+
+});
