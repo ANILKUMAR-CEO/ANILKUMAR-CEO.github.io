@@ -3,35 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Details</title>
+
+<title>Product Details | ANIL KUMAR DAIRY FARMS</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+background:#f5fff5;
+font-family:Arial,sans-serif;
+margin:0;
+padding:20px;
+}
+
+.product-page{
+max-width:500px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.product-page img{
+width:100%;
+border-radius:15px;
+}
+
+.product-page h1{
+color:#0B6623;
+text-align:center;
+}
+
+.product-page h2{
+text-align:center;
+}
+
+.price{
+font-size:32px;
+font-weight:bold;
+text-align:center;
+margin:15px 0;
+}
+
+.cart-btn,
+.whatsapp-btn{
+
+display:block;
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+text-decoration:none;
+text-align:center;
+
+}
+
+.cart-btn{
+background:#ff9800;
+color:white;
+}
+
+.whatsapp-btn{
+background:#0B6623;
+color:white;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1 id="productName" style="text-align:center;margin-top:30px;color:#0B6623;"></h1>
+<div class="product-page">
 
-<div class="product-card" style="max-width:400px;margin:30px auto;">
+<img id="productImage">
 
-<img id="productImage" src="" alt="Product">
+<h1 id="productName"></h1>
 
-<h2 id="productTitle"></h2>
+<h2 id="productDesc"></h2>
 
-<p id="productDesc"></p>
-
-<h3 id="productPrice"></h3>
+<div class="price" id="productPrice"></div>
 
 <button class="cart-btn">
 🛒 Add to Cart
 </button>
 
-<a href="https://wa.me/919390922530" class="details-btn">
+<a class="whatsapp-btn"
+id="whatsappBtn"
+target="_blank">
 Order on WhatsApp
 </a>
 
 </div>
 
-<script src="product.js"></script>
+<script>
+
+const products={
+
+milk:{
+name:"Fresh Milk",
+desc:"100% Pure Farm Fresh Milk.",
+price:"₹60 / Litre",
+image:"images/milk.png"
+},
+
+ghee:{
+name:"Pure Ghee",
+desc:"Traditional Homemade Cow Ghee.",
+price:"₹900 / Kg",
+image:"images/ghee.png"
+},
+
+curd:{
+name:"Fresh Curd",
+desc:"Healthy Homemade Fresh Curd.",
+price:"₹80 / Kg",
+image:"images/curd.png"
+},
+
+paneer:{
+name:"Fresh Paneer",
+desc:"Soft Protein Rich Paneer.",
+price:"₹350 / Kg",
+image:"images/paneer.png"
+}
+
+};
+
+const params=new URLSearchParams(window.location.search);
+
+const product=params.get("product")||"milk";
+
+const p=products[product];
+
+document.getElementById("productName").innerHTML=p.name;
+
+document.getElementById("productDesc").innerHTML=p.desc;
+
+document.getElementById("productPrice").innerHTML=p.price;
+
+document.getElementById("productImage").src=p.image;
+
+document.getElementById("productImage").alt=p.name;
+
+document.getElementById("whatsappBtn").href=
+`https://wa.me/919390922530?text=Hello ANIL KUMAR DAIRY FARMS, I want to order ${p.name}`;
+
+</script>
 
 </body>
 </html>
