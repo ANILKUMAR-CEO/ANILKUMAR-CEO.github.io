@@ -465,3 +465,36 @@ checkoutBtn.addEventListener("click", function () {
 
 });
 
+// ===== QUICK VIEW POPUP =====
+
+const quickView = document.getElementById("quickView");
+const quickImg = document.getElementById("quickImg");
+const quickTitle = document.getElementById("quickTitle");
+const quickDesc = document.getElementById("quickDesc");
+const quickPrice = document.getElementById("quickPrice");
+
+document.querySelectorAll(".product-card img").forEach(img => {
+
+    img.addEventListener("click", function () {
+
+        const card = this.closest(".product-card");
+
+        quickImg.src = this.src;
+        quickTitle.innerText = card.querySelector("h3").innerText;
+        quickDesc.innerText = card.querySelector("p").innerText;
+        quickPrice.innerText = card.querySelector("h4").innerText;
+
+        quickView.classList.add("active");
+    });
+
+});
+
+document.querySelector(".close-quick").onclick = () => {
+    quickView.classList.remove("active");
+};
+
+quickView.onclick = (e) => {
+    if (e.target === quickView) {
+        quickView.classList.remove("active");
+    }
+};
