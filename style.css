@@ -1306,3 +1306,9 @@ display:block;
         opacity:1;
     }
 }
+
+.wishlist-btn.active{
+    background:#ff1744;
+    color:#fff;
+    transform:scale(1.1);
+            }
