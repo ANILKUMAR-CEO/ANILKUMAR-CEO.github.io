@@ -465,36 +465,18 @@ checkoutBtn.addEventListener("click", function () {
 
 });
 
-// ===== QUICK VIEW POPUP =====
+document.querySelectorAll(".wishlist-btn").forEach(btn => {
 
-const quickView = document.getElementById("quickView");
-const quickImg = document.getElementById("quickImg");
-const quickTitle = document.getElementById("quickTitle");
-const quickDesc = document.getElementById("quickDesc");
-const quickPrice = document.getElementById("quickPrice");
+    btn.addEventListener("click", function () {
 
-document.querySelectorAll(".product-card img").forEach(img => {
+        this.classList.toggle("active");
 
-    img.addEventListener("click", function () {
+        if (this.classList.contains("active")) {
+            this.innerHTML = "❤️";
+        } else {
+            this.innerHTML = "🤍";
+        }
 
-        const card = this.closest(".product-card");
-
-        quickImg.src = this.src;
-        quickTitle.innerText = card.querySelector("h3").innerText;
-        quickDesc.innerText = card.querySelector("p").innerText;
-        quickPrice.innerText = card.querySelector("h4").innerText;
-
-        quickView.classList.add("active");
     });
 
 });
-
-document.querySelector(".close-quick").onclick = () => {
-    quickView.classList.remove("active");
-};
-
-quickView.onclick = (e) => {
-    if (e.target === quickView) {
-        quickView.classList.remove("active");
-    }
-};
