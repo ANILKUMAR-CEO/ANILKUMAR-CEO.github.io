@@ -214,6 +214,23 @@ document.getElementById("whatsappBtn").href=
 `https://wa.me/919390922530?text=Hello ANIL KUMAR DAIRY FARMS, I want to order ${p.name}`;
 
 </script>
+    
+    const mainImage = document.getElementById("productImage");
+const thumbs = document.querySelectorAll(".thumb");
+
+thumbs.forEach(thumb => {
+
+    thumb.addEventListener("click", function(){
+
+        mainImage.src = this.src;
+
+        thumbs.forEach(t => t.classList.remove("active"));
+
+        this.classList.add("active");
+
+    });
+
+});
 
 </body>
 </html>
