@@ -7,7 +7,6 @@
 <title>Product Details | ANIL KUMAR DAIRY FARMS</title>
 
 <link rel="stylesheet" href="style.css">
-
 <style>
 
 body{
@@ -167,7 +166,7 @@ color:white;
 <script>
 
     const products = {
-    
+
 milk:{
 name:"Fresh Milk",
 desc:"100% Pure Farm Fresh Milk collected directly from healthy cows. Rich in calcium, protein and natural nutrition. No preservatives or adulteration.",
@@ -194,8 +193,9 @@ name:"Fresh Paneer",
 desc:"Soft, fresh and protein-rich paneer made daily using pure milk.",
 price:"₹350 / Kg",
 image:"images/paneer.png"
-    };
+}
 
+};
 const params=new URLSearchParams(window.location.search);
 
 const product=params.get("product")||"milk";
