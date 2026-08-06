@@ -97,43 +97,55 @@ Place Order
 <script>
 function placeOrder(){
 
-const name = document.getElementById("name").value;
-const phone = document.getElementById("phone").value;
-const address = document.getElementById("address").value;
+const name = document.getElementById("name").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const address = document.getElementById("address").value.trim();
 const payment = document.getElementById("payment").value;
 
-if(name==="" || phone==="" || address===""){
+if(name === "" || phone === "" || address === ""){
     alert("Please fill all details.");
     return;
 }
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let message = "🛒 *NEW ORDER*%0A%0A";
-
-message += "👤 Name: " + name + "%0A";
-message += "📱 Phone: " + phone + "%0A";
-message += "🏠 Address: " + address + "%0A";
-message += "💳 Payment: " + payment + "%0A%0A";
-
-message += "*Products*%0A";
+if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+}
 
 let total = 0;
 
+let message =
+"🛒 NEW ORDER\n\n" +
+"👤 Name: " + name + "\n" +
+"📱 Phone: " + phone + "\n" +
+"🏠 Address: " + address + "\n" +
+"💳 Payment: " + payment + "\n\n" +
+"Products:\n";
+
 cart.forEach(item=>{
-    message += "• " + item.name + " × " + item.qty +
-    " = ₹" + (item.price * item.qty) + "%0A";
+    message +=
+    "• " + item.name +
+    " × " + item.qty +
+    " = ₹" + (item.price * item.qty) + "\n";
 
     total += item.price * item.qty;
 });
 
-message += "%0A💰 Total: ₹" + total;
+message += "\n💰 Total: ₹" + total;
 
-    localStorage.removeItem("cart");
+localStorage.removeItem("cart");
 
-window.location.href =
-"https://wa.me/919390922530?text=" + encodeURIComponent(message);
-    
+window.open(
+"https://wa.me/919390922530?text=" + encodeURIComponent(message),
+"_blank"
+);
+
+setTimeout(function(){
+    window.location.href = "success.html";
+},500);
+
 }
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
