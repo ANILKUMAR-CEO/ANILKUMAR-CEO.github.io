@@ -102,7 +102,7 @@ const phone = document.getElementById("phone").value.trim();
 const address = document.getElementById("address").value.trim();
 const payment = document.getElementById("payment").value;
 
-if(name === "" || phone === "" || address === ""){
+if(!name || !phone || !address){
     alert("Please fill all details.");
     return;
 }
@@ -110,30 +110,32 @@ if(name === "" || phone === "" || address === ""){
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 if(cart.length === 0){
-    alert("Your cart is empty!");
+    alert("Cart is empty");
     return;
 }
 
 let total = 0;
 
-let message =
-"🛒 NEW ORDER\n\n" +
-"👤 Name: " + name + "\n" +
-"📱 Phone: " + phone + "\n" +
-"🏠 Address: " + address + "\n" +
-"💳 Payment: " + payment + "\n\n" +
-"Products:\n";
+let message = `🛒 *NEW ORDER*
+
+👤 Name: ${name}
+📱 Phone: ${phone}
+🏠 Address: ${address}
+💳 Payment: ${payment}
+
+📦 PRODUCTS
+`;
 
 cart.forEach(item=>{
-    message +=
-    "• " + item.name +
-    " × " + item.qty +
-    " = ₹" + (item.price * item.qty) + "\n";
+    message += `\n• ${item.name}
+Qty : ${item.qty}
+Price : ₹${item.price}
+Subtotal : ₹${item.price * item.qty}\n`;
 
     total += item.price * item.qty;
 });
 
-message += "\n💰 Total: ₹" + total;
+message += `\n💰 TOTAL : ₹${total}`;
 
 localStorage.removeItem("cart");
 
@@ -143,8 +145,8 @@ window.open(
 );
 
 setTimeout(function(){
-    window.location.href = "success.html";
-},500);
+location.replace("success.html");
+},800);
 
 }
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
