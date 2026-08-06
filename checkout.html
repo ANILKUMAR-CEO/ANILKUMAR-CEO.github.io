@@ -129,15 +129,17 @@ cart.forEach(item=>{
 
 message += "%0A💰 Total: ₹" + total;
 
-window.open(
-"https://wa.me/919390922530?text=" + message,
-"_blank"
-);
     localStorage.removeItem("cart");
 
 setTimeout(()=>{
 window.location.href="success.html";
 },1000);
+
+window.open(
+"https://wa.me/919390922530?text=" + message,
+"_blank"
+);
+
 
 window.location.href="success.html";
 
