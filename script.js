@@ -452,6 +452,12 @@ checkoutBtn.addEventListener("click", function () {
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
+    if(cart.length===0){
+cartItems.innerHTML="<p>Your cart is empty.</p>";
+cartTotal.innerText="0";
+cartCount.innerText="0";
+    }
+
     window.location.href = "checkout.html";
 
 });
