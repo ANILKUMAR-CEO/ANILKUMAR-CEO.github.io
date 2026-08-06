@@ -443,8 +443,7 @@ function decreaseQty(index){
 updateCart();
 
 const checkoutBtn = document.getElementById("checkoutBtn");
-
-    checkoutBtn.addEventListener("click", function () {
+checkoutBtn.addEventListener("click", function () {
 
     if(cart.length === 0){
         alert("Your cart is empty!");
@@ -456,6 +455,7 @@ const checkoutBtn = document.getElementById("checkoutBtn");
     window.location.href = "checkout.html";
 
 });
+    
 document.querySelectorAll(".wishlist-btn").forEach(btn => {
 
     btn.addEventListener("click", function () {
