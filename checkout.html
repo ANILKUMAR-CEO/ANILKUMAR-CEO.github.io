@@ -110,6 +110,28 @@ return;
 window.location.href="success.html";
 
 }
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const orderSummary = document.getElementById("orderSummary");
+const orderTotal = document.getElementById("orderTotal");
+
+let total = 0;
+
+cart.forEach(item => {
+    total += item.price * item.qty;
+
+    orderSummary.innerHTML += `
+        <p>
+        <b>${item.name}</b><br>
+        ₹${item.price} × ${item.qty} = ₹${item.price * item.qty}
+        </p>
+        <hr>
+    `;
+});
+
+orderTotal.innerText = total;
+  
 </script>
 
 </body>
