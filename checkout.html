@@ -131,18 +131,9 @@ message += "%0A💰 Total: ₹" + total;
 
     localStorage.removeItem("cart");
 
-setTimeout(()=>{
-window.location.href="success.html";
-},1000);
-
-window.open(
-"https://wa.me/919390922530?text=" + message,
-"_blank"
-);
-
-
-window.location.href="success.html";
-
+window.location.href =
+"https://wa.me/919390922530?text=" + encodeURIComponent(message);
+    
 }
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
