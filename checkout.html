@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | ANIL KUMAR DAIRY FARMS</title>
 
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5fff5;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h1{
+text-align:center;
+color:#0B6623;
+}
+
+input,textarea,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#0B6623;
+color:#fff;
+border:none;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#084d19;
+}
+
+#orderSummary{
+background:#f8f8f8;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<div id="orderSummary">
+<h3>Order Summary</h3>
+<p>Your cart items will appear here.</p>
+</div>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<textarea id="address" rows="4" placeholder="Delivery Address"></textarea>
+
+<select id="payment">
+<option>Cash On Delivery</option>
+<option>UPI Payment</option>
+</select>
+
+<button onclick="placeOrder()">
+Place Order
+</button>
+
+</div>
+
+<script>
+function placeOrder(){
+
+const name=document.getElementById("name").value;
+const phone=document.getElementById("phone").value;
+const address=document.getElementById("address").value;
+const payment=document.getElementById("payment").value;
+
+if(name===""||phone===""||address===""){
+alert("Please fill all details.");
+return;
+}
+
+window.location.href="success.html";
+
+}
+</script>
+
+</body>
+</html>
