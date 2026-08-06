@@ -415,6 +415,10 @@ cart.reduce((sum, item) => sum + item.qty, 0);
     
   localStorage.setItem("cart", JSON.stringify(cart));  
 
+    if(cart.length === 0){
+    localStorage.removeItem("cart");
+}
+
 }
 
 function removeItem(index){
@@ -440,31 +444,18 @@ updateCart();
 
 const checkoutBtn = document.getElementById("checkoutBtn");
 
-checkoutBtn.addEventListener("click", function () {
+    checkoutBtn.addEventListener("click", function () {
 
-    if (cart.length === 0) {
+    if(cart.length === 0){
         alert("Your cart is empty!");
         return;
     }
 
-    let message = "Hello ANIL KUMAR DAIRY FARMS,%0A%0AI want to order:%0A%0A";
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-    let total = 0;
-
-    cart.forEach(item => {
-        message += `🥛 ${item.name} x ${item.qty} = ₹${item.price * item.qty}%0A`;
-        total += item.price * item.qty;
-    });
-
-    message += `%0A💰 Total: ₹${total}%0A%0APlease confirm my order. Thank you!`;
-
-    window.open(
-        `https://wa.me/919390922530?text=${message}`,
-        "_blank"
-    );
+    window.location.href = "checkout.html";
 
 });
-
 document.querySelectorAll(".wishlist-btn").forEach(btn => {
 
     btn.addEventListener("click", function () {
