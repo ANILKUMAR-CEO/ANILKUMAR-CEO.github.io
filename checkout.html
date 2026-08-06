@@ -133,6 +133,11 @@ window.open(
 "https://wa.me/919390922530?text=" + message,
 "_blank"
 );
+    localStorage.removeItem("cart");
+
+setTimeout(()=>{
+window.location.href="success.html";
+},1000);
 
 window.location.href="success.html";
 
