@@ -1,1 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Checkout | ANIL KUMAR DAIRY FARMS</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5fff5;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#0B6623;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:#0B6623;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#084d19;
+}
+
+button:disabled{
+    background:#777;
+    cursor:not-allowed;
+}
+
+#orderSummary{
+    background:#f8f8f8;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+#loading{
+    display:none;
+    text-align:center;
+    margin-top:15px;
+    color:#0B6623;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<h3>Order Summary</h3>
+
+<div id="orderSummary"></div>
+
+<h3 style="margin-top:20px;">
+Total: ₹<span id="orderTotal">0</span>
+</h3>
+
+<input
+    type="text"
+    id="name"
+    placeholder="Full Name"
+>
+
+<input
+    type="tel"
+    id="phone"
+    placeholder="Phone Number"
+>
+
+<textarea
+    id="address"
+    rows="4"
+    placeholder="Delivery Address"
+></textarea>
+
+<select id="payment">
+    <option value="Cash On Delivery">
+        Cash On Delivery
+    </option>
+
+    <option value="UPI Payment">
+        UPI Payment
+    </option>
+</select>
+
+<button
+    id="placeOrderBtn"
+    onclick="placeOrder()"
+>
+    Place Order
+</button>
+
+<div id="loading">
+    Processing your order...
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+
+<script>
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain: "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId: "anil-kumar-dairy-farms",
+
+    storageBucket: "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId: "698324008132",
+
+    appId: "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId: "G-42C7RVB715"
+
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+
+/* =========================================================
+   LOAD CART
+========================================================= */
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const orderSummary =
+    document.getElementById("orderSummary");
+
+const orderTotal =
+    document.getElementById("orderTotal");
+
+let total = 0;
+
+
+/* =========================================================
+   CHECK CART
+========================================================= */
+
+if(cart.length === 0){
+
+    orderSummary.innerHTML =
+        "<p>Your cart is empty.</p>";
+
+    document.getElementById("placeOrderBtn").disabled = true;
+
+}
+
+
+/* =========================================================
+   SHOW ORDER SUMMARY
+========================================================= */
+
+cart.forEach(item => {
+
+    const subtotal =
+        item.price * item.qty;
+
+    total += subtotal;
+
+    orderSummary.innerHTML += `
+
+        <p>
+
+        <b>${item.name}</b>
+
+        <br>
+
+        ₹${item.price} × ${item.qty}
+
+        = ₹${subtotal}
+
+        </p>
+
+        <hr>
+
+    `;
+
+});
+
+
+orderTotal.innerText = total;
+
+
+/* =========================================================
+   PLACE ORDER
+========================================================= */
+
+async function placeOrder(){
+
+    const name =
+        document.getElementById("name")
+        .value
+        .trim();
+
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
+
+    const address =
+        document.getElementById("address")
+        .value
+        .trim();
+
+    const payment =
+        document.getElementById("payment")
+        .value;
+
+
+    /* -------------------------------------------------------
+       VALIDATION
+    ------------------------------------------------------- */
+
+    if(!name || !phone || !address){
+
+        alert("Please fill all details.");
+
+        return;
+    }
+
+
+    if(cart.length === 0){
+
+        alert("Your cart is empty.");
+
+        return;
+    }
+
+
+    /* -------------------------------------------------------
+       PHONE VALIDATION
+    ------------------------------------------------------- */
+
+    const phonePattern = /^[0-9]{10}$/;
+
+    if(!phonePattern.test(phone)){
+
+        alert("Please enter a valid 10-digit phone number.");
+
+        return;
+    }
+
+
+    /* -------------------------------------------------------
+       BUTTON / LOADING
+    ------------------------------------------------------- */
+
+    const placeOrderBtn =
+        document.getElementById("placeOrderBtn");
+
+    const loading =
+        document.getElementById("loading");
+
+
+    placeOrderBtn.disabled = true;
+
+    placeOrderBtn.innerText =
+        "Processing...";
+
+    loading.style.display = "block";
+
+
+    try{
+
+
+        /* =====================================================
+           PRODUCTS FOR FIREBASE
+        ===================================================== */
+
+        const products = cart.map(item => {
+
+            return {
+
+                name: item.name,
+
+                price: Number(item.price),
+
+                quantity: Number(item.qty),
+
+                subtotal:
+                    Number(item.price) *
+                    Number(item.qty)
+
+            };
+
+        });
+
+
+        /* =====================================================
+           SAVE ORDER TO FIREBASE
+        ===================================================== */
+
+        const orderRef = await db
+            .collection("orders")
+            .add({
+
+                name: name,
+
+                phone: phone,
+
+                address: address,
+
+                payment: payment,
+
+                products: products,
+
+                total: Number(total),
+
+                status: "Pending",
+
+                createdAt:
+                    firebase.firestore.FieldValue
+                    .serverTimestamp()
+
+            });
+
+
+        console.log(
+            "Firebase Order ID:",
+            orderRef.id
+        );
+
+
+        /* =====================================================
+           WHATSAPP MESSAGE
+        ===================================================== */
+
+        let message =
+`🛒 *NEW ORDER*
+
+👤 *Name:* ${name}
+📱 *Phone:* ${phone}
+🏠 *Address:* ${address}
+💳 *Payment:* ${payment}
+
+📦 *PRODUCTS*
+`;
+
+
+        cart.forEach(item => {
+
+            message +=
+`
+🥛 ${item.name}
+Qty: ${item.qty}
+Price: ₹${item.price}
+Subtotal: ₹${item.price * item.qty}
+`;
+
+        });
+
+
+        message +=
+`
+💰 *TOTAL: ₹${total}*
+
+🆔 Order ID: ${orderRef.id}
+
+Please confirm my order.
+Thank you!`;
+
+
+        /* =====================================================
+           WHATSAPP URL
+        ===================================================== */
+
+        const whatsappURL =
+            "https://wa.me/919390922530?text=" +
+            encodeURIComponent(message);
+
+
+        /* =====================================================
+           CLEAR CART
+        ===================================================== */
+
+        localStorage.removeItem("cart");
+
+
+        /* =====================================================
+           OPEN WHATSAPP
+        ===================================================== */
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+        /* =====================================================
+           GO TO SUCCESS PAGE
+        ===================================================== */
+
+        setTimeout(function(){
+
+            window.location.replace(
+                "success.html"
+            );
+
+        },500);
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "ORDER ERROR:",
+            error
+        );
+
+
+        alert(
+            "Order could not be submitted. Please try again."
+        );
+
+
+        placeOrderBtn.disabled = false;
+
+        placeOrderBtn.innerText =
+            "Place Order";
+
+        loading.style.display =
+            "none";
+
+    }
+
+}
+
+</script>
+
+</body>
+  </html>
