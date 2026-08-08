@@ -493,7 +493,31 @@ Proceed to Checkout
 </div>
 
 <div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
-    <script src="script.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+    authDomain: "anil-kumar-dairy-farms.firebaseapp.com",
+    projectId: "anil-kumar-dairy-farms",
+    storageBucket: "anil-kumar-dairy-farms.firebasestorage.app",
+    messagingSenderId: "698324008132",
+    appId: "1:698324008132:web:aaf2b196d4f21c30c91d91",
+    measurementId: "G-42C7RVB715"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+console.log("🔥 Firebase Connected Successfully");
+</script>
+
+<script src="script.js"></script>
     
     <script>
 const menuToggle = document.getElementById("menuToggle");
