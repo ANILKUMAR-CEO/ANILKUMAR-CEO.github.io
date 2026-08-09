@@ -1185,4 +1185,121 @@ async function(
                 ){
 
                     currentStatus =
-                        
+                document.data().status ||
+                    "New Order";
+
+                }
+
+            }
+        );
+
+
+        let currentIndex =
+            statuses.indexOf(
+                currentStatus
+            );
+
+
+        if(currentIndex === -1){
+
+            currentIndex = 0;
+
+        }
+
+
+        if(
+            currentIndex <
+            statuses.length - 1
+        ){
+
+            currentIndex++;
+
+        }
+
+
+        const newStatus =
+            statuses[currentIndex];
+
+
+        await updateDoc(
+            doc(
+                db,
+                "orders",
+                orderId
+            ),
+            {
+                status: newStatus
+            }
+        );
+
+
+        alert(
+            "✅ Order status updated to: " +
+            newStatus
+        );
+
+
+        await loadDashboard();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Status update error:",
+            error
+        );
+
+
+        alert(
+            "❌ Could not update order status."
+        );
+
+    }
+
+};
+
+
+/* ================================================
+   ESCAPE HTML
+================================================ */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* ================================================
+   FIREBASE READY
+================================================ */
+
+console.log(
+    "✅ Firebase Admin Dashboard loaded successfully."
+);
+            
