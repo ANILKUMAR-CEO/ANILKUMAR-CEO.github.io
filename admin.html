@@ -1,1 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | ANIL KUMAR DAIRY FARMS</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7f4;
+    color:#222;
+}
+
+/* ================= LOGIN ================= */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:400px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+.login-box h1{
+    text-align:center;
+    color:#0B6623;
+    margin-bottom:5px;
+}
+
+.login-box p{
+    text-align:center;
+    color:#777;
+}
+
+.login-box input{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.login-box button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    background:#0B6623;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-box button:disabled{
+    opacity:.6;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:15px;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard{
+    display:none;
+}
+
+.header{
+    background:#0B6623;
+    color:white;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header h2{
+    margin:0;
+    font-size:20px;
+}
+
+.logout-btn{
+    background:white;
+    color:#0B6623;
+    border:none;
+    padding:9px 15px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.content h1{
+    color:#0B6623;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.stat-card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.stat-card h3{
+    margin:0;
+    color:#666;
+    font-size:15px;
+}
+
+.stat-card h2{
+    margin:10px 0 0;
+    color:#0B6623;
+}
+
+/* ================= ORDERS ================= */
+
+.orders-box{
+    background:white;
+    margin-top:25px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.orders-box h2{
+    margin-top:0;
+    color:#0B6623;
+}
+
+.order{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.order h3{
+    margin-top:0;
+    color:#0B6623;
+}
+
+.order p{
+    line-height:1.5;
+}
+
+.status{
+    display:inline-block;
+    background:#fff3cd;
+    color:#856404;
+    padding:6px 10px;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.order button{
+    margin-top:10px;
+    padding:9px 12px;
+    border:none;
+    border-radius:7px;
+    background:#0B6623;
+    color:white;
+    cursor:pointer;
+}
+
+.refresh-btn{
+    background:#0B6623;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:10px;
+}
+
+.loading{
+    text-align:center;
+    padding:20px;
+    color:#777;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px){
+
+    .content{
+        padding:15px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:15px;
+    }
+
+    .stat-card h2{
+        font-size:22px;
+    }
+
+    .header h2{
+        font-size:16px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <h1>🐄 Admin Login</h1>
+
+        <p>ANIL KUMAR DAIRY FARMS</p>
+
+        <input
+            type="email"
+            id="adminEmail"
+            placeholder="Admin Email"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Password"
+        >
+
+        <button id="loginButton" onclick="adminLogin()">
+            Login
+        </button>
+
+        <div class="error" id="loginError"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<div class="dashboard" id="dashboard">
+
+    <div class="header">
+
+        <h2>🐄 ANIL KUMAR DAIRY FARMS</h2>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="content">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Welcome, Admin 👋
+        </p>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <h3>
+                    📦 Total Orders
+                </h3>
+
+                <h2 id="totalOrders">
+                    0
+                </h2>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    💰 Total Sales
+                </h3>
+
+                <h2>
+                    ₹<span id="totalSales">0</span>
+                </h2>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    👥 Customers
+                </h3>
+
+                <h2 id="totalCustomers">
+                    0
+                </h2>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    🛒 Products
+                </h3>
+
+                <h2>
+                    4
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= ORDERS ================= -->
+
+        <div class="orders-box">
+
+            <h2>
+                📦 Recent Orders
+            </h2>
+
+            <button
+                class="refresh-btn"
+                onclick="loadDashboard()"
+            >
+                🔄 Refresh Orders
+            </button>
+
+            <div id="ordersList">
+
+                <div class="loading">
+                    Loading orders...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+/*
+==========================================================
+🔥 FIREBASE CONFIG
+
+IMPORTANT:
+
+Replace the values below with YOUR Firebase Web App config.
+
+Firebase Console
+→ Project Settings
+→ Your apps
+→ Web App
+→ firebaseConfig
+==========================================================
+*/
+
+const firebaseConfig = {
+
+    apiKey: "PASTE_YOUR_API_KEY_HERE",
+
+    authDomain: "PASTE_YOUR_AUTH_DOMAIN_HERE",
+
+    projectId: "PASTE_YOUR_PROJECT_ID_HERE",
+
+    storageBucket: "PASTE_YOUR_STORAGE_BUCKET_HERE",
+
+    messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
+
+    appId: "PASTE_YOUR_APP_ID_HERE"
+
+};
+
+
+/* ================= FIREBASE IMPORTS ================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    query,
+    orderBy,
+    doc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* ================= INITIALIZE ================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* ================= ELEMENTS ================= */
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const dashboard =
+    document.getElementById("dashboard");
+
+const loginError =
+    document.getElementById("loginError");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+window.adminLogin = async function(){
+
+    const email =
+        document.getElementById("adminEmail")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("adminPassword")
+        .value
+        .trim();
+
+
+    loginError.innerText = "";
+
+
+    if(!email || !password){
+
+        loginError.innerText =
+            "❌ Please enter email and password.";
+
+        return;
+
+    }
+
+
+    loginButton.disabled = true;
+
+    loginButton.innerText =
+        "Logging in...";
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        loginError.innerText =
+            "❌ Invalid email or password.";
+
+    }
+
+    finally{
+
+        loginButton.disabled = false;
+
+        loginButton.innerText =
+            "Login";
+
+    }
+
+};
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(auth, async(user)=>{
+
+    if(user){
+
+        loginPage.style.display =
+            "none";
+
+        dashboard.style.display =
+            "block";
+
+        await loadDashboard();
+
+    }
+
+    else{
+
+        loginPage.style.display =
+            "flex";
+
+        dashboard.style.display =
+            "none";
+
+    }
+
+});
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+};
+
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
+
+window.loadDashboard = async function(){
+
+    const ordersList =
+        document.getElementById("ordersList");
+
+
+    ordersList.innerHTML = `
+        <div class="loading">
+            🔄 Loading orders from Firebase...
+        </div>
+    `;
+
+
+    try{
+
+        /*
+        Firebase collection:
+
+        orders
+
+        Each document should contain fields like:
+
+        name
+        phone
+        address
+        payment
+        total
+        status
+        createdAt
+        items
+        */
+
+        const ordersRef =
+            collection(db,"orders");
+
+
+        let ordersSnapshot;
+
+
+        try{
+
+            const ordersQuery =
+                query(
+                    ordersRef,
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    )
+                );
+
+            ordersSnapshot =
+                await getDocs(ordersQuery);
+
+        }
+
+        catch(error){
+
+            console.log(
+                "createdAt ordering failed. Loading without ordering."
+            );
+
+            ordersSnapshot =
+                await getDocs(ordersRef);
+
+        }
+
+
+        const orders = [];
+
+
+        ordersSnapshot.forEach((document)=>{
+
+            orders.push({
+
+                id: document.id,
+
+                ...document.data()
+
+            });
+
+        });
+
+
+        updateStatistics(orders);
+
+        displayOrders(orders);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        ordersList.innerHTML = `
+            <p style="color:red;">
+                ❌ Firebase orders load failed.
+            </p>
+
+            <p>
+                Check Firestore Rules and collection name.
+            </p>
+        `;
+
+    }
+
+};
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function updateStatistics(orders){
+
+    document.getElementById("totalOrders")
+        .innerText =
+        orders.length;
+
+
+    let sales = 0;
+
+
+    const customers = new Set();
+
+
+    orders.forEach(order=>{
+
+        sales +=
+            Number(order.total) || 0;
+
+
+        if(order.phone){
+
+            customers.add(
+                String(order.phone)
+            );
+
+        }
+
+    });
+
+
+    document.getElementById("totalSales")
+        .innerText =
+        sales;
+
+
+    document.getElementById("totalCustomers")
+        .innerText =
+        customers.size;
+
+}
+
+
+/* =====================================================
+   DISPLAY ORDERS
+===================================================== */
+
+function displayOrders(orders){
+
+    const ordersList =
+        document.getElementById("ordersList");
+
+
+    if(orders.length === 0){
+
+        ordersList.innerHTML = `
+            <p>
+                No orders available yet.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    ordersList.innerHTML = "";
+
+
+    orders.forEach((order,index)=>{
+
+
+        let productsHTML = "";
+
+
+        /*
+        Handle items array
+        */
+
+        if(
+            Array.isArray(order.items)
+        ){
+
+            order.items.forEach(item=>{
+
+                const quantity =
+                    Number(item.qty) || 0;
+
+                const price =
+                    Number(item.price) || 0;
+
+                const itemTotal =
+                    quantity * price;
+
+
+                productsHTML += `
+
+                    <p>
+
+                        🥛
+                        <b>
+                            ${escapeHTML(
+                                item.name || "Product"
+                            )}
+                        </b>
+
+                        × ${quantity}
+
+                        = ₹${itemTotal}
+
+                    </p>
+
+                `;
+
+            });
+
+        }
+
+
+        /*
+        Order date
+        */
+
+        let orderDate =
+            "Date not available";
+
+
+        if(order.createdAt){
+
+            try{
+
+                if(
+                    typeof order.createdAt.toDate ===
+                    "function"
+                ){
+
+                    orderDate =
+                        order.createdAt
+                        .toDate()
+                        .toLocaleString(
+                            "en-IN"
+                        );
+
+                }
+
+                else if(
+                    order.createdAt.seconds
+                ){
+
+                    orderDate =
+                        new Date(
+                            order.createdAt.seconds *
+                            1000
+                        )
+                        .toLocaleString(
+                            "en-IN"
+                        );
+
+                }
+
+                else if(
+                    order.createdAt instanceof Date
+                ){
+
+                    orderDate =
+                        order.createdAt
+                        .toLocaleString(
+                            "en-IN"
+                        );
+
+                }
+
+            }
+
+            catch(error){
+
+                console.log(
+                    "Date conversion error",
+                    error
+                );
+
+            }
+
+        }
+
+
+        const status =
+            order.status ||
+            "New Order";
+
+
+        /*
+        Create order card
+        */
+
+        ordersList.innerHTML += `
+
+            <div class="order">
+
+                <h3>
+                    📦 Order #${orders.length - index}
+                </h3>
+
+
+                <p>
+                    🆔
+                    <b>Order ID:</b>
+                    ${escapeHTML(order.id)}
+                </p>
+
+
+                <p>
+                    👤
+                    <b>
+                        ${escapeHTML(
+                            order.name ||
+                            "Customer"
+                        )}
+                    </b>
+                </p>
+
+
+                <p>
+                    📱
+                    ${escapeHTML(
+                        order.phone ||
+                        ""
+                    )}
+                </p>
+
+
+                <p>
+                    🏠
+                    ${escapeHTML(
+                        order.address ||
+                        ""
+                    )}
+                </p>
+
+
+                <p>
+                    💳
+                    <b>Payment:</b>
+                    ${escapeHTML(
+                        order.payment ||
+                        "Not specified"
+                    )}
+                </p>
+
+
+                <p>
+                    🕐
+                    <b>Order Date:</b>
+                    ${escapeHTML(orderDate)}
+                </p>
+
+
+                <hr>
+
+
+                <h3>
+                    🛒 Products
+                </h3>
+
+
+                ${productsHTML}
+
+
+                <p>
+                    💰
+                    <b>
+                        Total: ₹${Number(
+                            order.total
+                        ) || 0}
+                    </b>
+                </p>
+
+
+                <span class="status">
+                    ${escapeHTML(status)}
+                </span>
+
+
+                <br>
+
+
+                <button
+                    onclick="updateOrderStatus(
+                        '${order.id}'
+                    )"
+                >
+                    Update Status
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   UPDATE ORDER STATUS
+===================================================== */
+
+window.updateOrderStatus =
+async function(orderId){
+
+    try{
+
+        const orderRef =
+            doc(
+                db,
+                "orders",
+                orderId
+            );
+
+
+        /*
+        Status flow
+        */
+
+        const statuses = [
+
+            "New Order",
+
+            "Confirmed",
+
+            "Preparing",
+
+            "Out for Delivery",
+
+            "Delivered"
+
+        ];
+
+
+        /*
+        First get current order
+        */
+
+        const snapshot =
+            await getDocs(
+                query(
+                    collection(db,"orders")
+                )
+            );
+
+
+        let currentStatus =
+            "New Order";
+
+
+        snapshot.forEach(document=>{
+
+            if(document.id === orderId){
+
+                currentStatus =
+                    document.data().status ||
+                    "New Order";
+
+            }
+
+        });
+
+
+        let currentIndex =
+            statuses.indexOf(
+                currentStatus
+            );
+
+
+        if(currentIndex < 0){
+
+            currentIndex = 0;
+
+        }
+
+
+        if(
+            currentIndex <
+            statuses.length - 1
+        ){
+
+            currentIndex++;
+
+        }
+
+
+        const newStatus =
+            statuses[currentIndex];
+
+
+        await updateDoc(
+            orderRef,
+            {
+
+                status:newStatus
+
+            }
+        );
+
+
+        alert(
+            "✅ Order status updated to: " +
+            newStatus
+        );
+
+
+        await loadDashboard();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "❌ Could not update order status."
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   SECURITY HELPER
+===================================================== */
+
+function escapeHTML(value){
+
+    if(value === null ||
+       value === undefined){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;")
+
+        .replaceAll('"',"&quot;")
+
+        .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+  </html>
