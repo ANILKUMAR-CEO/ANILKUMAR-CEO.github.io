@@ -1,1 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | ANIL KUMAR DAIRY FARMS</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5fff5;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#0B6623;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:#0B6623;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#084d19;
+}
+
+button:disabled{
+    background:#888;
+    cursor:not-allowed;
+}
+
+#orderSummary{
+    background:#f8f8f8;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.product-row{
+    padding:10px 0;
+    border-bottom:1px solid #ddd;
+}
+
+#loading{
+    display:none;
+    text-align:center;
+    margin-top:15px;
+    color:#0B6623;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<h3>Order Summary</h3>
+
+<div id="orderSummary"></div>
+
+<h3 style="margin-top:20px;">
+Total: ₹<span id="orderTotal">0</span>
+</h3>
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+>
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+>
+
+<textarea
+id="address"
+rows="4"
+placeholder="Delivery Address"
+></textarea>
+
+<select id="payment">
+
+<option value="Cash On Delivery">
+Cash On Delivery
+</option>
+
+<option value="UPI Payment">
+UPI Payment
+</option>
+
+</select>
+
+<button id="placeOrderBtn" onclick="placeOrder()">
+Place Order
+</button>
+
+<div id="loading">
+Saving your order...
+</div>
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain:
+    "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId:
+    "anil-kumar-dairy-farms",
+
+    storageBucket:
+    "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId:
+    "698324008132",
+
+    appId:
+    "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId:
+    "G-42C7RVB715"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* MAKE PLACE ORDER AVAILABLE */
+
+window.placeOrder = async function(){
+
+    const name =
+    document.getElementById("name")
+    .value
+    .trim();
+
+    const phone =
+    document.getElementById("phone")
+    .value
+    .trim();
+
+    const address =
+    document.getElementById("address")
+    .value
+    .trim();
+
+    const payment =
+    document.getElementById("payment")
+    .value;
+
+
+    /* VALIDATION */
+
+    if(!name || !phone || !address){
+
+        alert("Please fill all details.");
+
+        return;
+    }
+
+
+    /* GET CART */
+
+    const cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+    if(cart.length === 0){
+
+        alert("Your cart is empty!");
+
+        return;
+    }
+
+
+    /* CALCULATE TOTAL */
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+        total +=
+        Number(item.price) *
+        Number(item.qty);
+
+    });
+
+
+    /* FIRESTORE PRODUCTS */
+
+    const products =
+    cart.map(item => ({
+
+        name: item.name,
+
+        price: Number(item.price),
+
+        qty: Number(item.qty),
+
+        subtotal:
+        Number(item.price) *
+        Number(item.qty)
+
+    }));
+
+
+    /* DISABLE BUTTON */
+
+    const button =
+    document.getElementById("placeOrderBtn");
+
+    const loading =
+    document.getElementById("loading");
+
+    button.disabled = true;
+
+    button.innerText = "Processing...";
+
+    loading.style.display = "block";
+
+
+    try{
+
+        /* SAVE ORDER TO FIRESTORE */
+
+        const orderRef =
+        await addDoc(
+            collection(db, "orders"),
+            {
+
+                name: name,
+
+                phone: phone,
+
+                address: address,
+
+                payment: payment,
+
+                products: products,
+
+                total: total,
+
+                status: "Pending",
+
+                createdAt:
+                serverTimestamp()
+
+            }
+        );
+
+
+        console.log(
+            "Order saved:",
+            orderRef.id
+        );
+
+
+        /* WHATSAPP MESSAGE */
+
+        let message =
+`🛒 *NEW ORDER*
+
+👤 *Name:* ${name}
+
+📱 *Phone:* ${phone}
+
+🏠 *Address:* ${address}
+
+💳 *Payment:* ${payment}
+
+📦 *PRODUCTS*
+`;
+
+
+        cart.forEach(item => {
+
+            message +=
+`\n• ${item.name}
+Qty: ${item.qty}
+Price: ₹${item.price}
+Subtotal: ₹${item.price * item.qty}
+`;
+
+        });
+
+
+        message +=
+`\n💰 *TOTAL: ₹${total}*
+
+🆔 Order ID:
+${orderRef.id}
+
+Please confirm my order.
+Thank you!`;
+
+
+        /* CLEAR CART */
+
+        localStorage.removeItem("cart");
+
+
+        /* OPEN WHATSAPP */
+
+        const whatsappURL =
+        "https://wa.me/919390922530?text=" +
+        encodeURIComponent(message);
+
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+        /* SUCCESS PAGE */
+
+        setTimeout(() => {
+
+            window.location.replace(
+                "success.html"
+            );
+
+        }, 1000);
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Firestore error:",
+            error
+        );
+
+
+        alert(
+            "Order save failed.\n\n" +
+            "Please try again."
+        );
+
+
+        button.disabled = false;
+
+        button.innerText =
+        "Place Order";
+
+        loading.style.display =
+        "none";
+
+    }
+
+};
+
+
+/* DISPLAY CART */
+
+const cart =
+JSON.parse(
+    localStorage.getItem("cart")
+) || [];
+
+
+const orderSummary =
+document.getElementById(
+    "orderSummary"
+);
+
+const orderTotal =
+document.getElementById(
+    "orderTotal"
+);
+
+
+let total = 0;
+
+
+if(cart.length === 0){
+
+    orderSummary.innerHTML =
+    "<p>Your cart is empty.</p>";
+
+}
+else{
+
+    cart.forEach(item => {
+
+        const subtotal =
+        Number(item.price) *
+        Number(item.qty);
+
+        total += subtotal;
+
+
+        orderSummary.innerHTML += `
+
+        <div class="product-row">
+
+            <b>${item.name}</b>
+
+            <br>
+
+            ₹${item.price}
+            ×
+            ${item.qty}
+
+            =
+            ₹${subtotal}
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+orderTotal.innerText =
+total;
+
+</script>
+
+</body>
+
+  </html>
