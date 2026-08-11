@@ -734,30 +734,6 @@ const statusDescriptions = [
 ];
 
 
-/* =========================================
-   URL ORDER ID
-========================================= */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-
-const urlOrderId =
-    params.get("orderId") ||
-    localStorage.getItem("lastOrderId");
-
-
-if(urlOrderId){
-
-    orderIdInput.value =
-        urlOrderId;
-
-    loadOrder();
-
-}
-
 
 /* =========================================
    LOAD ORDER
@@ -882,6 +858,31 @@ function(){
 
 };
 
+ /* =========================================
+   URL ORDER ID
+========================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const urlOrderId =
+    params.get("orderId") ||
+    localStorage.getItem("lastOrderId");
+
+
+if(urlOrderId){
+
+    orderIdInput.value =
+        urlOrderId;
+
+    loadOrder();
+
+}
+
+                    
 
 /* =========================================
    DISPLAY ORDER
