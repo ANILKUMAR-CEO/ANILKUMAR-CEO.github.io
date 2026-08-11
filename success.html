@@ -296,26 +296,25 @@ else{
 
 function trackOrder(){
 
-    if(!orderId){
+    const id = String(
+        localStorage.getItem("lastOrderId") || ""
+    ).trim();
 
-        alert(
-            "Order ID not available."
-        );
+    if(!id){
 
+        alert("Order ID not available.");
         return;
 
     }
 
+    console.log("Tracking Order ID:", id);
 
     window.location.href =
-        "track-order.html?orderId=" +
-        encodeURIComponent(
-            orderId
-        );
+        "./track-order.html?orderId=" +
+        encodeURIComponent(id);
 
-}
-
-
+    }
+    
 </script>
 
 
