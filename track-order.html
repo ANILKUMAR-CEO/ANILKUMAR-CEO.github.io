@@ -935,7 +935,64 @@ if(urlOrderId){
 
 }
 
-                    
+    };   // ← window.loadOrder function ikkada end avutundi
+
+
+/* =========================================
+   CANCEL ORDER
+========================================= */
+
+async function cancelOrder(orderId){
+
+    const confirmCancel =
+        confirm(
+            "Are you sure you want to cancel this order?"
+        );
+
+    if(!confirmCancel){
+
+        return;
+
+    }
+
+    try{
+
+        await updateDoc(
+            doc(
+                db,
+                "orders",
+                orderId
+            ),
+            {
+                status:"Cancelled"
+            }
+        );
+
+        alert(
+            "✅ Order cancelled successfully."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Cancel order error:",
+            error
+        );
+
+        alert(
+            "❌ Unable to cancel the order. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   AUTO LOAD ORDER FROM URL
+========================================= */
 
 /* =========================================
    DISPLAY ORDER
