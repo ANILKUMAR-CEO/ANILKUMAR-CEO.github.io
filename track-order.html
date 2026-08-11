@@ -898,10 +898,12 @@ function displayOrder(
     ================================= */
 
     const orderItems =
-        Array.isArray(order.products)
-            ? order.products
-            : Array.isArray(order.items)
-                ? order.items
+    Array.isArray(order.products)
+        ? order.products
+        : Array.isArray(order.items)
+            ? order.items
+            : Array.isArray(order.iteams)
+                ? order.iteams
                 : [];
 
 
