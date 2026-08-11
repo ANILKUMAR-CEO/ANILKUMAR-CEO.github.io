@@ -319,6 +319,11 @@ window.placeOrder = async function(){
             orderRef.id
         );
 
+         localStorage.setItem(
+    "lastOrderId",
+    orderRef.id
+);
+        
 
         /* WHATSAPP MESSAGE */
 
