@@ -1,1 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Order Successful | ANIL KUMAR DAIRY FARMS
+</title>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background:#f5fff5;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+
+.box{
+
+    background:white;
+
+    padding:35px 25px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.15);
+
+    text-align:center;
+
+    max-width:430px;
+
+    width:100%;
+
+}
+
+
+.tick{
+
+    font-size:75px;
+
+    color:green;
+
+    animation:
+        pop .6s ease;
+
+}
+
+
+@keyframes pop{
+
+    0%{
+        transform:scale(0);
+    }
+
+    80%{
+        transform:scale(1.2);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+h1{
+
+    color:#0B6623;
+
+    margin-top:10px;
+
+    font-size:28px;
+
+}
+
+
+p{
+
+    color:#555;
+
+    line-height:1.6;
+
+}
+
+
+.order-id-box{
+
+    margin-top:20px;
+
+    background:#f1f8f2;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    word-break:break-all;
+
+}
+
+
+.order-id-box strong{
+
+    color:#0B6623;
+
+}
+
+
+button{
+
+    margin-top:15px;
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B6623;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+button:hover{
+
+    background:#084d19;
+
+}
+
+
+.secondary{
+
+    background:#555;
+
+}
+
+
+.secondary:hover{
+
+    background:#333;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+    <div class="tick">
+        ✅
+    </div>
+
+
+    <h1>
+        Order Placed Successfully!
+    </h1>
+
+
+    <p>
+
+        Thank you for shopping with
+
+        <br>
+
+        <b>
+            ANIL KUMAR DAIRY FARMS
+        </b>
+
+    </p>
+
+
+    <div class="order-id-box">
+
+        <strong>
+            Your Order ID
+        </strong>
+
+        <br><br>
+
+        <span id="orderId">
+            Loading...
+        </span>
+
+    </div>
+
+
+    <button
+        onclick="trackOrder()"
+    >
+
+        📦 Track My Order
+
+    </button>
+
+
+    <button
+        class="secondary"
+        onclick="location.href='index.html'"
+    >
+
+        🛒 Continue Shopping
+
+    </button>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   GET LAST ORDER ID
+========================================= */
+
+
+const orderId =
+    localStorage.getItem(
+        "lastOrderId"
+    );
+
+
+const orderIdElement =
+    document.getElementById(
+        "orderId"
+    );
+
+
+if(orderId){
+
+    orderIdElement.innerText =
+        orderId;
+
+}
+
+else{
+
+    orderIdElement.innerText =
+        "Order ID not available";
+
+}
+
+
+/* =========================================
+   TRACK ORDER
+========================================= */
+
+
+function trackOrder(){
+
+    if(!orderId){
+
+        alert(
+            "Order ID not available."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "track-order.html?orderId=" +
+        encodeURIComponent(
+            orderId
+        );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
