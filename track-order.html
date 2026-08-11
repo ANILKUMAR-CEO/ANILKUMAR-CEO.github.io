@@ -1,1 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Track Order | ANIL KUMAR DAIRY FARMS
+</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    font-family:Arial,sans-serif;
+
+    background:#f5fff5;
+
+    color:#222;
+
+    padding:20px;
+
+}
+
+.container{
+
+    max-width:650px;
+
+    margin:auto;
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+    background:#0B6623;
+
+    color:white;
+
+    padding:25px 20px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.12);
+
+}
+
+.header h1{
+
+    margin:0;
+
+    font-size:28px;
+
+}
+
+.header p{
+
+    margin:8px 0 0;
+
+    font-size:16px;
+
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.10);
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+.search-box input:focus{
+
+    border-color:#0B6623;
+
+}
+
+.search-box button{
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B6623;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.search-box button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#0B6623;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+
+    background:#ffeaea;
+
+    color:#b00000;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   ORDER CARD
+========================= */
+
+.order-card{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.10);
+
+}
+
+.order-card h2{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+    font-size:24px;
+
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+
+    margin-top:13px;
+
+    line-height:1.6;
+
+    word-break:break-word;
+
+}
+
+.info b{
+
+    color:#333;
+
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+
+    border-top:1px solid #ddd;
+
+    margin-top:20px;
+
+    padding-top:15px;
+
+}
+
+.products h3{
+
+    color:#0B6623;
+
+}
+
+.product{
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+    line-height:1.5;
+
+}
+
+.product:last-child{
+
+    border-bottom:none;
+
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.total{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    color:#0B6623;
+
+    margin-top:18px;
+
+    padding:15px;
+
+    background:#f1fff1;
+
+    border-radius:10px;
+
+}
+
+/* =========================
+   STATUS TITLE
+========================= */
+
+.status-title{
+
+    color:#0B6623;
+
+    margin-top:28px;
+
+}
+
+/* =========================
+   TRACKER
+========================= */
+
+.status-tracker{
+
+    margin-top:20px;
+
+    position:relative;
+
+}
+
+/* vertical line */
+
+.status-tracker::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:18px;
+
+    top:19px;
+
+    bottom:19px;
+
+    width:3px;
+
+    background:#ddd;
+
+}
+
+/* =========================
+   STATUS STEP
+========================= */
+
+.status-step{
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    margin-bottom:20px;
+
+    min-height:40px;
+
+}
+
+/* =========================
+   ICON
+========================= */
+
+.status-icon{
+
+    width:40px;
+
+    height:40px;
+
+    min-width:40px;
+
+    border-radius:50%;
+
+    background:#ddd;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    margin-right:15px;
+
+    position:relative;
+
+    z-index:2;
+
+    border:3px solid white;
+
+}
+
+/* completed */
+
+.status-step.completed .status-icon{
+
+    background:#0B6623;
+
+    color:white;
+
+}
+
+/* current */
+
+.status-step.active .status-icon{
+
+    background:#0B6623;
+
+    color:white;
+
+    box-shadow:
+        0 0 0 5px #c8efcf;
+
+}
+
+/* =========================
+   STATUS TEXT
+========================= */
+
+.status-text{
+
+    font-size:15px;
+
+}
+
+.status-text strong{
+
+    display:block;
+
+    font-size:16px;
+
+}
+
+.status-text small{
+
+    color:#777;
+
+}
+
+/* =========================
+   CURRENT STATUS
+========================= */
+
+.current-status{
+
+    margin-top:22px;
+
+    padding:16px;
+
+    background:#fff3cd;
+
+    color:#856404;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    font-size:17px;
+
+}
+
+/* =========================
+   DATE
+========================= */
+
+.order-date{
+
+    margin-top:13px;
+
+    color:#555;
+
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button{
+
+    margin-top:20px;
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#555;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+.back-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+    body{
+
+        padding:12px;
+
+    }
+
+    .header h1{
+
+        font-size:24px;
+
+    }
+
+    .order-card{
+
+        padding:18px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            📦 Track Your Order
+        </h1>
+
+        <p>
+            ANIL KUMAR DAIRY FARMS
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="orderIdInput"
+            placeholder="Enter Order ID"
+        >
+
+        <button
+            onclick="loadOrder()"
+        >
+
+            🔍 Track Order
+
+        </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+        id="result"
+    ></div>
+
+
+    <!-- BACK -->
+
+    <button
+        class="back-button"
+        onclick="location.href='index.html'"
+    >
+
+        🏠 Back to Home
+
+    </button>
+
+
+</div>
+
+
+<script type="module">
+
+
+/* =========================================
+   FIREBASE
+========================================= */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getFirestore,
+    doc,
+    onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain:
+    "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId:
+    "anil-kumar-dairy-farms",
+
+    storageBucket:
+    "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId:
+    "698324008132",
+
+    appId:
+    "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId:
+    "G-42C7RVB715"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getFirestore(
+        app
+    );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+
+const orderIdInput =
+    document.getElementById(
+        "orderIdInput"
+    );
+
+
+/* =========================================
+   STATUS LIST
+========================================= */
+
+const statuses = [
+
+    "Pending",
+
+    "Confirmed",
+
+    "Preparing",
+
+    "Out for Delivery",
+
+    "Delivered"
+
+];
+
+
+const statusIcons = [
+
+    "🕐",
+
+    "✅",
+
+    "👨‍🍳",
+
+    "🚚",
+
+    "🎉"
+
+];
+
+
+const statusDescriptions = [
+
+    "Your order has been received",
+
+    "Your order has been confirmed",
+
+    "Your order is being prepared",
+
+    "Your order is on the way",
+
+    "Your order has been delivered"
+
+];
+
+
+/* =========================================
+   URL ORDER ID
+========================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const urlOrderId =
+    params.get(
+        "orderId"
+    );
+
+
+if(urlOrderId){
+
+    orderIdInput.value =
+        urlOrderId;
+
+    loadOrder();
+
+}
+
+
+/* =========================================
+   LOAD ORDER
+========================================= */
+
+window.loadOrder =
+function(){
+
+    const orderId =
+        orderIdInput
+        .value
+        .trim();
+
+
+    if(!orderId){
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                ❌ Please enter your Order ID.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            🔄 Loading your order...
+
+        </div>
+
+    `;
+
+
+    const orderRef =
+        doc(
+            db,
+            "orders",
+            orderId
+        );
+
+
+    /* =====================================
+       REAL-TIME FIREBASE LISTENER
+    ===================================== */
+
+    onSnapshot(
+
+        orderRef,
+
+        snapshot=>{
+
+            if(
+                !snapshot.exists()
+            ){
+
+                result.innerHTML = `
+
+                    <div class="error">
+
+                        ❌ Order not found.
+
+                        <br><br>
+
+                        Please check your Order ID
+                        and try again.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            const order =
+                snapshot.data();
+
+
+            displayOrder(
+                orderId,
+                order
+            );
+
+        },
+
+
+        error=>{
+
+            console.error(
+                "Order tracking error:",
+                error
+            );
+
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    ❌ Unable to load order.
+
+                    <br><br>
+
+                    Please try again.
+
+                </div>
+
+            `;
+
+        }
+
+    );
+
+};
+
+
+/* =========================================
+   DISPLAY ORDER
+========================================= */
+
+function displayOrder(
+    orderId,
+    order
+){
+
+    /* ================================
+       PRODUCTS
+    ================================= */
+
+const orderItems =
+    Array.isArray(order.products)
+        ? order.products
+        : Array.isArray(order.items)
+            ? order.items
+            : Array.isArray(order.iteams)
+                ? order.iteams
+                : [];
+
+
+    let productsHTML =
+        "";
+
+
+    orderItems.forEach(
+        item=>{
+
+            const qty =
+                Number(item.qty) || 0;
+
+
+            const price =
+                Number(item.price) || 0;
+
+
+            const subtotal =
+                Number(item.subtotal) ||
+                qty * price;
+
+
+            productsHTML += `
+
+                <div class="product">
+
+                    🥛
+
+                    <b>
+                        ${escapeHTML(
+                            item.name ||
+                            "Product"
+                        )}
+                    </b>
+
+                    × ${qty}
+
+                    =
+
+                    ₹${subtotal}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    /* ================================
+       STATUS
+    ================================= */
+
+    const status =
+        order.status ||
+        "Pending";
+
+
+    let currentIndex =
+        statuses.indexOf(
+            status
+        );
+
+
+    if(currentIndex === -1){
+
+        currentIndex = 0;
+
+    }
+
+
+    let statusHTML =
+        "";
+
+
+    statuses.forEach(
+        (item,index)=>{
+
+            let className = "";
+
+
+            if(index < currentIndex){
+
+                className =
+                    "completed";
+
+            }
+
+
+            if(index === currentIndex){
+
+                className =
+                    "active";
+
+            }
+
+
+            statusHTML += `
+
+                <div
+                    class="status-step ${className}"
+                >
+
+                    <div
+                        class="status-icon"
+                    >
+
+                        ${statusIcons[index]}
+
+                    </div>
+
+
+                    <div
+                        class="status-text"
+                    >
+
+                        <strong>
+
+                            ${item}
+
+                        </strong>
+
+                        <small>
+
+                            ${statusDescriptions[index]}
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    /* ================================
+       ORDER DATE
+    ================================= */
+
+    let orderDate =
+        "Not available";
+
+
+    if(order.createdAt){
+
+        try{
+
+            const date =
+                order.createdAt.toDate();
+
+            orderDate =
+                date.toLocaleString(
+                    "en-IN"
+                );
+
+        }
+        catch(error){
+
+            orderDate =
+                "Not available";
+
+        }
+
+    }
+
+
+    /* ================================
+       ADDRESS
+    ================================= */
+
+    const address =
+        order.address ||
+        "Not specified";
+
+
+    /* ================================
+       PHONE
+    ================================= */
+
+    const phone =
+        order.phone ||
+        "Not specified";
+
+
+    /* ================================
+       TOTAL
+    ================================= */
+
+    const total =
+        Number(order.total) || 0;
+
+
+    /* ================================
+       DISPLAY
+    ================================= */
+
+    result.innerHTML = `
+
+        <div class="order-card">
+
+
+            <h2>
+
+                📦 Order Details
+
+            </h2>
+
+
+            <div class="info">
+
+                🆔
+
+                <b>
+                    Order ID:
+                </b>
+
+                ${escapeHTML(
+                    orderId
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                👤
+
+                <b>
+                    Customer:
+                </b>
+
+                ${escapeHTML(
+                    order.name ||
+                    "Customer"
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                📱
+
+                <b>
+                    Phone:
+                </b>
+
+                ${escapeHTML(
+                    phone
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                🏠
+
+                <b>
+                    Address:
+                </b>
+
+                ${escapeHTML(
+                    address
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                💳
+
+                <b>
+                    Payment:
+                </b>
+
+                ${escapeHTML(
+                    order.payment ||
+                    "Not specified"
+                )}
+
+            </div>
+
+
+            <div class="order-date">
+
+                📅
+
+                <b>
+                    Order Date:
+                </b>
+
+                ${escapeHTML(
+                    orderDate
+                )}
+
+            </div>
+
+
+            <!-- PRODUCTS -->
+
+            <div class="products">
+
+                <h3>
+
+                    🛒 Products
+
+                </h3>
+
+
+                ${
+                    productsHTML ||
+                    "<p>No product details.</p>"
+                }
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="total">
+
+                💰 Total:
+
+                ₹${total}
+
+            </div>
+
+
+            <!-- TRACKING -->
+
+            <h3
+                class="status-title"
+            >
+
+                🚚 Order Progress
+
+            </h3>
+
+
+            <div
+                class="status-tracker"
+            >
+
+                ${statusHTML}
+
+            </div>
+
+
+            <!-- CURRENT STATUS -->
+
+            <div
+                class="current-status"
+            >
+
+                📍 Current Status:
+
+                ${escapeHTML(
+                    status
+                )}
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+  </html>
