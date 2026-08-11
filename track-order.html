@@ -745,9 +745,8 @@ const params =
 
 
 const urlOrderId =
-    params.get(
-        "orderId"
-    );
+    params.get("orderId") ||
+    localStorage.getItem("lastOrderId");
 
 
 if(urlOrderId){
