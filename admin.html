@@ -773,40 +773,60 @@ function displayOrders(orders) {
 
             let productsHTML = "";
 
+/* SUPPORT BOTH OLD AND NEW ORDERS */
 
-            if (Array.isArray(order.items)) {
-
-                order.items.forEach(
-                    (item) => {
-
-                        const qty =
-                            Number(item.qty) || 0;
-
-                        const price =
-                            Number(item.price) || 0;
+const orderItems =
+    Array.isArray(order.items)
+        ? order.items
+        : Array.isArray(order.products)
+            ? order.products
+            : [];
 
 
-                        productsHTML += `
-                            <p>
-                                🥛
-                                <b>
-                                    ${escapeHTML(
-                                        item.name ||
-                                        "Product"
-                                    )}
-                                </b>
+if(orderItems.length > 0){
 
-                                × ${qty}
+    orderItems.forEach(
+        item=>{
 
-                                = ₹${qty * price}
-                            </p>
-                        `;
+            const qty =
+                Number(item.qty) || 0;
 
-                    }
-                );
+            const price =
+                Number(item.price) || 0;
 
-            }
+            const subtotal =
+                Number(item.subtotal) ||
+                (qty * price);
 
+
+            productsHTML += `
+
+                <p>
+
+                    🥛
+                    <b>
+                        ${
+                            escapeHTML(
+                                item.name ||
+                                "Product"
+                            )
+                        }
+                    </b>
+
+                    × ${qty}
+
+                    =
+
+                    ₹${subtotal}
+
+                </p>
+
+            `;
+
+        }
+    );
+
+    }
 
             let orderDate =
                 "Date not available";
