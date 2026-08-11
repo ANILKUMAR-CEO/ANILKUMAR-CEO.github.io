@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Admin Orders | ANIL KUMAR DAIRY FARMS</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    font-family:Arial,sans-serif;
+
+    background:#f5fff5;
+
+    color:#222;
+
+    padding:15px;
+
+}
+
+.container{
+
+    max-width:1000px;
+
+    margin:auto;
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+    background:#0B6623;
+
+    color:white;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+
+}
+
+.header h1{
+
+    margin:0;
+
+    font-size:27px;
+
+}
+
+.header p{
+
+    margin:8px 0 0;
+
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-card{
+
+    background:white;
+
+    max-width:450px;
+
+    margin:25px auto;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
+
+}
+
+.login-card h2{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+    text-align:center;
+
+}
+
+.login-card input{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+}
+
+.login-card button{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B6623;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+#adminPanel{
+
+    display:none;
+
+}
+
+.admin-top{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
+
+}
+
+.admin-top h2{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+}
+
+.logout-btn{
+
+    background:#b00000;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.stat{
+
+    background:white;
+
+    padding:18px 10px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+}
+
+.stat h3{
+
+    margin:0;
+
+    color:#0B6623;
+
+    font-size:24px;
+
+}
+
+.stat p{
+
+    margin:6px 0 0;
+
+    font-size:13px;
+
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+}
+
+/* =========================
+   ORDER CARD
+========================= */
+
+.order-card{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
+
+}
+
+.order-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    border-bottom:1px solid #ddd;
+
+    padding-bottom:12px;
+
+}
+
+.order-header h2{
+
+    margin:0;
+
+    color:#0B6623;
+
+    font-size:20px;
+
+}
+
+.order-date{
+
+    color:#666;
+
+    font-size:13px;
+
+}
+
+.info{
+
+    margin-top:10px;
+
+    line-height:1.5;
+
+    word-break:break-word;
+
+}
+
+.products{
+
+    margin-top:18px;
+
+    padding-top:15px;
+
+    border-top:1px solid #ddd;
+
+}
+
+.products h3{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+}
+
+.product{
+
+    padding:9px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.product:last-child{
+
+    border-bottom:none;
+
+}
+
+.total{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:#f1fff1;
+
+    color:#0B6623;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-box{
+
+    margin-top:20px;
+
+    padding-top:15px;
+
+    border-top:1px solid #ddd;
+
+}
+
+.status-box label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+    color:#0B6623;
+
+}
+
+.status-select{
+
+    width:100%;
+
+    padding:13px;
+
+    border:2px solid #0B6623;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    background:white;
+
+}
+
+.update-btn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B6623;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+.update-btn:active{
+
+    transform:scale(.98);
+
+}
+
+.message{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+.error{
+
+    background:#ffeaea;
+
+    color:#b00000;
+
+}
+
+.success{
+
+    background:#e8ffe8;
+
+    color:#0B6623;
+
+}
+
+.loading{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#0B6623;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+    .header h1{
+
+        font-size:23px;
+
+    }
+
+    .order-header{
+
+        display:block;
+
+    }
+
+    .order-date{
+
+        margin-top:6px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+    <h1>
+        👨‍💼 Admin Order Management
+    </h1>
+
+    <p>
+        ANIL KUMAR DAIRY FARMS
+    </p>
+
+</div>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div
+    id="loginCard"
+    class="login-card"
+>
+
+    <h2>
+        🔐 Admin Login
+    </h2>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Admin Email"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+    >
+
+    <button
+        id="loginBtn"
+    >
+
+        🔐 Login
+
+    </button>
+
+    <div id="loginMessage"></div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div id="adminPanel">
+
+
+    <div class="admin-top">
+
+        <h2>
+            📊 Dashboard
+        </h2>
+
+        <p id="adminEmail"></p>
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <h3 id="totalOrders">
+                0
+            </h3>
+
+            <p>
+                Total Orders
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3 id="pendingOrders">
+                0
+            </h3>
+
+            <p>
+                Pending
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3 id="confirmedOrders">
+                0
+            </h3>
+
+            <p>
+                Confirmed
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3 id="preparingOrders">
+                0
+            </h3>
+
+            <p>
+                Preparing
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3 id="deliveredOrders">
+                0
+            </h3>
+
+            <p>
+                Delivered
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search Order ID, Customer, Phone..."
+        >
+
+    </div>
+
+
+    <!-- ORDERS -->
+
+    <div id="ordersContainer">
+
+        <div class="loading">
+
+            🔄 Loading orders...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+
+<script>
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain:
+    "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId:
+    "anil-kumar-dairy-farms",
+
+    storageBucket:
+    "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId:
+    "698324008132",
+
+    appId:
+    "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId:
+    "G-42C7RVB715"
+
+};
+
+
+firebase.initializeApp(
+    firebaseConfig
+);
+
+
+const db =
+    firebase.firestore();
+
+
+const auth =
+    firebase.auth();
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginCard =
+    document.getElementById(
+        "loginCard"
+    );
+
+
+const adminPanel =
+    document.getElementById(
+        "adminPanel"
+    );
+
+
+const emailInput =
+    document.getElementById(
+        "email"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const loginBtn =
+    document.getElementById(
+        "loginBtn"
+    );
+
+
+const loginMessage =
+    document.getElementById(
+        "loginMessage"
+    );
+
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+
+const ordersContainer =
+    document.getElementById(
+        "ordersContainer"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginBtn.addEventListener(
+    "click",
+    async function(){
+
+        const email =
+            emailInput
+            .value
+            .trim();
+
+
+        const password =
+            passwordInput
+            .value;
+
+
+        if(!email || !password){
+
+            loginMessage.innerHTML = `
+
+                <div class="message error">
+
+                    ❌ Enter email and password.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        loginMessage.innerHTML = `
+
+            <div class="message">
+
+                🔄 Logging in...
+
+            </div>
+
+        `;
+
+
+        try{
+
+            await auth.signInWithEmailAndPassword(
+                email,
+                password
+            );
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+
+            loginMessage.innerHTML = `
+
+                <div class="message error">
+
+                    ❌ Login failed.
+
+                    <br>
+
+                    ${escapeHTML(
+                        error.message
+                    )}
+
+                </div>
+
+            `;
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+auth.onAuthStateChanged(
+    function(user){
+
+        if(user){
+
+            loginCard.style.display =
+                "none";
+
+
+            adminPanel.style.display =
+                "block";
+
+
+            document.getElementById(
+                "adminEmail"
+            ).textContent =
+                "Logged in as: " +
+                user.email;
+
+
+            loadOrders();
+
+        }
+
+        else{
+
+            loginCard.style.display =
+                "block";
+
+
+            adminPanel.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(){
+
+        await auth.signOut();
+
+    }
+);
+
+
+/* =========================================
+   LOAD ORDERS
+========================================= */
+
+function loadOrders(){
+
+    ordersContainer.innerHTML = `
+
+        <div class="loading">
+
+            🔄 Loading orders...
+
+        </div>
+
+    `;
+
+
+    db.collection("orders")
+        .onSnapshot(
+
+            function(snapshot){
+
+                const orders = [];
+
+
+                snapshot.forEach(
+                    function(doc){
+
+                        orders.push({
+
+                            id:doc.id,
+
+                            data:doc.data()
+
+                        });
+
+                    }
+                );
+
+
+                orders.sort(
+                    function(a,b){
+
+                        const aTime =
+                            getTimestamp(
+                                a.data.createdAt
+                            );
+
+
+                        const bTime =
+                            getTimestamp(
+                                b.data.createdAt
+                            );
+
+
+                        return bTime-aTime;
+
+                    }
+                );
+
+
+                window.allOrders =
+                    orders;
+
+
+                updateStats(
+                    orders
+                );
+
+
+                renderOrders(
+                    orders
+                );
+
+            },
+
+
+            function(error){
+
+                console.error(error);
+
+
+                ordersContainer.innerHTML = `
+
+                    <div class="message error">
+
+                        ❌ Unable to load orders.
+
+                        <br><br>
+
+                        ${escapeHTML(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+            }
+
+        );
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        const search =
+            searchInput
+            .value
+            .trim()
+            .toLowerCase();
+
+
+        if(!search){
+
+            renderOrders(
+                window.allOrders || []
+            );
+
+            return;
+
+        }
+
+
+        const filtered =
+            (window.allOrders || [])
+            .filter(
+                function(order){
+
+                    const data =
+                        order.data;
+
+
+                    return (
+
+                        order.id
+                        .toLowerCase()
+                        .includes(search)
+
+                        ||
+
+                        String(
+                            data.name || ""
+                        )
+                        .toLowerCase()
+                        .includes(search)
+
+                        ||
+
+                        String(
+                            data.phone || ""
+                        )
+                        .toLowerCase()
+                        .includes(search)
+
+                    );
+
+                }
+            );
+
+
+        renderOrders(
+            filtered
+        );
+
+    }
+);
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders(
+    orders
+){
+
+    if(!orders.length){
+
+        ordersContainer.innerHTML = `
+
+            <div class="order-card">
+
+                <h3>
+                    📦 No orders found
+                </h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    orders.forEach(
+        function(order){
+
+            html += createOrderHTML(
+                order.id,
+                order.data
+            );
+
+        }
+    );
+
+
+    ordersContainer.innerHTML =
+        html;
+
+
+    /* STATUS EVENTS */
+
+    document
+        .querySelectorAll(
+            ".update-btn"
+        )
+        .forEach(
+            function(button){
+
+                button.addEventListener(
+                    "click",
+                    function(){
+
+                        updateOrderStatus(
+                            button.dataset.id
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================
+   CREATE ORDER HTML
+========================================= */
+
+function createOrderHTML(
+    orderId,
+    order
+){
+
+    const items =
+        Array.isArray(order.products)
+            ? order.products
+            : Array.isArray(order.items)
+                ? order.items
+                : Array.isArray(order.iteams)
+                    ? order.iteams
+                    : [];
+
+
+    let productsHTML = "";
+
+
+    items.forEach(
+        function(item){
+
+            const qty =
+                Number(item.qty) || 0;
+
+
+            const price =
+                Number(item.price) || 0;
+
+
+            const subtotal =
+                Number(item.subtotal)
+                || qty * price;
+
+
+            productsHTML += `
+
+                <div class="product">
+
+                    🥛
+
+                    <b>
+
+                        ${escapeHTML(
+                            item.name ||
+                            "Product"
+                        )}
+
+                    </b>
+
+                    × ${qty}
+
+                    = ₹${subtotal}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    const total =
+        Number(order.total) || 0;
+
+
+    const status =
+        order.status ||
+        "Pending";
+
+
+    const orderDate =
+        formatDate(
+            order.createdAt
+        );
+
+
+    return `
+
+        <div class="order-card">
+
+
+            <div class="order-header">
+
+                <h2>
+
+                    📦 Order #${escapeHTML(
+                        orderId
+                    )}
+
+                </h2>
+
+
+                <div class="order-date">
+
+                    ${escapeHTML(
+                        orderDate
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                👤
+
+                <b>
+                    Customer:
+                </b>
+
+                ${escapeHTML(
+                    order.name ||
+                    "Customer"
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                📱
+
+                <b>
+                    Phone:
+                </b>
+
+                ${escapeHTML(
+                    order.phone ||
+                    "Not specified"
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                🏠
+
+                <b>
+                    Address:
+                </b>
+
+                ${escapeHTML(
+                    order.address ||
+                    "Not specified"
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                💳
+
+                <b>
+                    Payment:
+                </b>
+
+                ${escapeHTML(
+                    order.payment ||
+                    "Not specified"
+                )}
+
+            </div>
+
+
+            <div class="products">
+
+                <h3>
+                    🛒 Products
+                </h3>
+
+
+                ${
+                    productsHTML ||
+                    "<p>No product details.</p>"
+                }
+
+            </div>
+
+
+            <div class="total">
+
+                💰 Total: ₹${total}
+
+            </div>
+
+
+            <div class="status-box">
+
+                <label>
+                    🚚 Order Status
+                </label>
+
+
+                <select
+                    class="status-select"
+                    id="status-${escapeHTML(
+                        orderId
+                    )}"
+                >
+
+                    <option
+                        value="Pending"
+                        ${
+                            status === "Pending"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        Pending
+                    </option>
+
+
+                    <option
+                        value="Confirmed"
+                        ${
+                            status === "Confirmed"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        Confirmed
+                    </option>
+
+
+                    <option
+                        value="Preparing"
+                                                ${
+                            status === "Preparing"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        Preparing
+                    </option>
+
+
+                    <option
+                        value="Out for Delivery"
+                        ${
+                            status === "Out for Delivery"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        Out for Delivery
+                    </option>
+
+
+                    <option
+                        value="Delivered"
+                        ${
+                            status === "Delivered"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        Delivered
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="update-btn"
+                    data-id="${escapeHTML(orderId)}"
+                >
+
+                    🚚 Update Order Status
+
+                </button>
+
+
+                <div
+                    id="message-${escapeHTML(orderId)}"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   UPDATE ORDER STATUS
+========================================= */
+
+async function updateOrderStatus(
+    orderId
+){
+
+    const select =
+        document.getElementById(
+            "status-" + orderId
+        );
+
+
+    const message =
+        document.getElementById(
+            "message-" + orderId
+        );
+
+
+    if(!select){
+
+        return;
+
+    }
+
+
+    const newStatus =
+        select.value;
+
+
+    message.innerHTML = `
+
+        <div class="message">
+
+            🔄 Updating status...
+
+        </div>
+
+    `;
+
+
+    try{
+
+        await db
+            .collection("orders")
+            .doc(orderId)
+            .update({
+
+                status:newStatus
+
+            });
+
+
+        message.innerHTML = `
+
+            <div class="message success">
+
+                ✅ Order status updated successfully!
+
+                <br>
+
+                Current Status:
+                ${escapeHTML(newStatus)}
+
+            </div>
+
+        `;
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Status update error:",
+            error
+        );
+
+
+        message.innerHTML = `
+
+            <div class="message error">
+
+                ❌ Failed to update order status.
+
+                <br><br>
+
+                ${escapeHTML(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   UPDATE STATISTICS
+========================================= */
+
+function updateStats(
+    orders
+){
+
+    let pending = 0;
+
+    let confirmed = 0;
+
+    let preparing = 0;
+
+    let delivered = 0;
+
+
+    orders.forEach(
+        function(order){
+
+            const status =
+                order.data.status ||
+                "Pending";
+
+
+            if(status === "Pending"){
+
+                pending++;
+
+            }
+
+            else if(
+                status === "Confirmed"
+            ){
+
+                confirmed++;
+
+            }
+
+            else if(
+                status === "Preparing"
+            ){
+
+                preparing++;
+
+            }
+
+            else if(
+                status === "Delivered"
+            ){
+
+                delivered++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        orders.length;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "confirmedOrders"
+    ).textContent =
+        confirmed;
+
+
+    document.getElementById(
+        "preparingOrders"
+    ).textContent =
+        preparing;
+
+
+    document.getElementById(
+        "deliveredOrders"
+    ).textContent =
+        delivered;
+
+}
+
+
+/* =========================================
+   TIMESTAMP
+========================================= */
+
+function getTimestamp(
+    timestamp
+){
+
+    if(!timestamp){
+
+        return 0;
+
+    }
+
+
+    if(
+        typeof timestamp.toMillis ===
+        "function"
+    ){
+
+        return timestamp.toMillis();
+
+    }
+
+
+    if(
+        timestamp.seconds
+    ){
+
+        return Number(
+            timestamp.seconds
+        ) * 1000;
+
+    }
+
+
+    if(
+        timestamp instanceof Date
+    ){
+
+        return timestamp.getTime();
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(
+    timestamp
+){
+
+    if(!timestamp){
+
+        return "Date not available";
+
+    }
+
+
+    try{
+
+        let date;
+
+
+        if(
+            typeof timestamp.toDate ===
+            "function"
+        ){
+
+            date =
+                timestamp.toDate();
+
+        }
+
+        else if(
+            timestamp instanceof Date
+        ){
+
+            date =
+                timestamp;
+
+        }
+
+        else if(
+            timestamp.seconds
+        ){
+
+            date =
+                new Date(
+                    Number(
+                        timestamp.seconds
+                    ) * 1000
+                );
+
+        }
+
+        else{
+
+            return String(
+                timestamp
+            );
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN"
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Date formatting error:",
+            error
+        );
+
+        return "Date not available";
+
+    }
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
