@@ -1273,6 +1273,38 @@ const orderItems =
 
             </div>
 
+            ${
+    (
+        status === "Pending" ||
+        status === "Confirmed" ||
+        status === "Preparing"
+    )
+    ?
+    `
+        <button
+            class="cancel-button"
+            onclick="cancelOrder('${escapeHTML(orderId)}')"
+        >
+            ❌ Cancel Order
+        </button>
+    `
+    :
+    (
+        status === "Cancelled"
+        ?
+        `
+            <div class="cancel-disabled">
+                ❌ This order has been cancelled.
+            </div>
+        `
+        :
+        `
+            <div class="cancel-disabled">
+                🚫 This order can no longer be cancelled.
+            </div>
+        `
+    )
+    }
 
         </div>
 
