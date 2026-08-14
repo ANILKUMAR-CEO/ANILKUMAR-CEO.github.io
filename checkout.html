@@ -2,10 +2,16 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Checkout | ANIL KUMAR DAIRY FARMS</title>
+
 
 <style>
 
@@ -83,23 +89,39 @@ button:disabled{
     font-weight:bold;
 }
 
+#errorBox{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    background:#ffeaea;
+    color:#b00000;
+    text-align:center;
+    font-weight:bold;
+}
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
 <h1>Checkout</h1>
 
+
 <h3>Order Summary</h3>
 
 <div id="orderSummary"></div>
 
+
 <h3 style="margin-top:20px;">
 Total: ₹<span id="orderTotal">0</span>
 </h3>
+
 
 <input
 type="text"
@@ -107,17 +129,20 @@ id="name"
 placeholder="Full Name"
 >
 
+
 <input
 type="tel"
 id="phone"
 placeholder="Phone Number"
 >
 
+
 <textarea
 id="address"
 rows="4"
 placeholder="Delivery Address"
 ></textarea>
+
 
 <select id="payment">
 
@@ -131,23 +156,38 @@ UPI Payment
 
 </select>
 
-<button id="placeOrderBtn" onclick="placeOrder()">
+
+<button
+id="placeOrderBtn"
+onclick="placeOrder()"
+>
+
 Place Order
+
 </button>
+
 
 <div id="loading">
 Saving your order...
 </div>
 
+
+<div id="errorBox"></div>
+
+
 </div>
 
 
-<!-- FIREBASE -->
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
     getFirestore,
@@ -155,8 +195,20 @@ import {
     addDoc,
     serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
+import {
+    getAuth
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* ==================================================
+   FIREBASE CONFIG
+================================================== */
 
 const firebaseConfig = {
 
@@ -180,152 +232,369 @@ const firebaseConfig = {
 
     measurementId:
     "G-42C7RVB715"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
+/* ==================================================
+   INITIALIZE FIREBASE
+================================================== */
 
-const db = getFirestore(app);
-
-
-/* MAKE PLACE ORDER AVAILABLE */
-
-window.placeOrder = async function(){
-
-    const name =
-    document.getElementById("name")
-    .value
-    .trim();
-
-    const phone =
-    document.getElementById("phone")
-    .value
-    .trim();
-
-    const address =
-    document.getElementById("address")
-    .value
-    .trim();
-
-    const payment =
-    document.getElementById("payment")
-    .value;
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
 
-    /* VALIDATION */
-
-    if(!name || !phone || !address){
-
-        alert("Please fill all details.");
-
-        return;
-    }
+const db =
+    getFirestore(app);
 
 
-    /* GET CART */
+const auth =
+    getAuth(app);
 
-    const cart =
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const orderSummary =
+    document.getElementById(
+        "orderSummary"
+    );
+
+
+const orderTotal =
+    document.getElementById(
+        "orderTotal"
+    );
+
+
+const button =
+    document.getElementById(
+        "placeOrderBtn"
+    );
+
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+const errorBox =
+    document.getElementById(
+        "errorBox"
+    );
+
+
+/* ==================================================
+   DISPLAY CART
+================================================== */
+
+const cart =
     JSON.parse(
         localStorage.getItem("cart")
     ) || [];
 
 
-    if(cart.length === 0){
-
-        alert("Your cart is empty!");
-
-        return;
-    }
+let total = 0;
 
 
-    /* CALCULATE TOTAL */
+if(cart.length === 0){
 
-    let total = 0;
+    orderSummary.innerHTML = `
+        <p>Your cart is empty.</p>
+    `;
+
+}
+else{
 
     cart.forEach(item => {
 
-        total +=
-        Number(item.price) *
-        Number(item.qty);
+        const price =
+            Number(item.price) || 0;
+
+        const qty =
+            Number(item.qty) || 0;
+
+        const subtotal =
+            price * qty;
+
+        total += subtotal;
+
+
+        orderSummary.innerHTML += `
+
+            <div class="product-row">
+
+                <b>
+                    ${escapeHTML(item.name)}
+                </b>
+
+                <br>
+
+                ₹${price}
+                ×
+                ${qty}
+
+                =
+                ₹${subtotal}
+
+            </div>
+
+        `;
 
     });
 
-
-    /* FIRESTORE PRODUCTS */
-
-    const products =
-    cart.map(item => ({
-
-        name: item.name,
-
-        price: Number(item.price),
-
-        qty: Number(item.qty),
-
-        subtotal:
-        Number(item.price) *
-        Number(item.qty)
-
-    }));
+}
 
 
-    /* DISABLE BUTTON */
+orderTotal.innerText =
+    total;
 
-    const button =
-    document.getElementById("placeOrderBtn");
 
-    const loading =
-    document.getElementById("loading");
+/* ==================================================
+   PLACE ORDER
+================================================== */
 
-    button.disabled = true;
+window.placeOrder =
+async function(){
 
-    button.innerText = "Processing...";
+    errorBox.style.display =
+        "none";
 
-    loading.style.display = "block";
+
+    /* ================= GET DETAILS ================= */
+
+    const name =
+        document
+        .getElementById("name")
+        .value
+        .trim();
+
+
+    const phone =
+        document
+        .getElementById("phone")
+        .value
+        .trim();
+
+
+    const address =
+        document
+        .getElementById("address")
+        .value
+        .trim();
+
+
+    const payment =
+        document
+        .getElementById("payment")
+        .value;
+
+
+    /* ================= VALIDATION ================= */
+
+    if(
+        !name ||
+        !phone ||
+        !address
+    ){
+
+        showError(
+            "Please fill all delivery details."
+        );
+
+        return;
+
+    }
+
+
+    /* ================= CART CHECK ================= */
+
+    if(
+        cart.length === 0
+    ){
+
+        showError(
+            "Your cart is empty!"
+        );
+
+        return;
+
+    }
+
+
+    /* ==================================================
+       IMPORTANT:
+
+       OPEN WHATSAPP WINDOW IMMEDIATELY
+
+       This helps prevent mobile popup blockers.
+    ================================================== */
+
+    let whatsappWindow = null;
 
 
     try{
 
-        /* SAVE ORDER TO FIRESTORE */
+        whatsappWindow =
+            window.open(
+                "",
+                "_blank"
+            );
+
+    }
+
+    catch(error){
+
+        console.log(
+            "WhatsApp window could not open:",
+            error
+        );
+
+    }
+
+
+    /* ================= BUTTON ================= */
+
+    button.disabled =
+        true;
+
+    button.innerText =
+        "Processing...";
+
+    loading.style.display =
+        "block";
+
+
+    /* ==================================================
+       BUILD PRODUCTS
+    ================================================== */
+
+    const products =
+        cart.map(item => {
+
+            const price =
+                Number(item.price) || 0;
+
+            const qty =
+                Number(item.qty) || 0;
+
+
+            return {
+
+                name:
+                    item.name,
+
+                price:
+                    price,
+
+                qty:
+                    qty,
+
+                subtotal:
+                    price * qty
+
+            };
+
+        });
+
+
+    /* ==================================================
+       GET LOGGED-IN USER
+
+       If customer is logged in,
+       save UID and email also.
+    ================================================== */
+
+    const currentUser =
+        auth.currentUser;
+
+
+    const userId =
+        currentUser
+        ? currentUser.uid
+        : "";
+
+
+    const email =
+        currentUser
+        ? currentUser.email || ""
+        : "";
+
+
+    /* ==================================================
+       SAVE ORDER
+    ================================================== */
+
+    try{
 
         const orderRef =
-        await addDoc(
-            collection(db, "orders"),
-            {
+            await addDoc(
+                collection(
+                    db,
+                    "orders"
+                ),
+                {
 
-                name: name,
+                    name:
+                        name,
 
-                phone: phone,
+                    phone:
+                        phone,
 
-                address: address,
+                    address:
+                        address,
 
-                payment: payment,
+                    payment:
+                        payment,
 
-                iteams: products,
+                    items:
+                        products,
 
-                total: total,
+                    total:
+                        total,
 
-                status: "Pending",
+                    status:
+                        "Pending",
 
-                createdAt:
-                serverTimestamp()
+                    userId:
+                        userId,
 
-            }
-        );
+                    uid:
+                        userId,
+
+                    email:
+                        email,
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
 
 
         console.log(
-            "Order saved:",
+            "Order saved successfully:",
             orderRef.id
         );
 
-         localStorage.setItem(
-    "lastOrderId",
-    orderRef.id
-);
-        
 
-        /* WHATSAPP MESSAGE */
+        /* ==================================================
+           SAVE LAST ORDER ID
+        ================================================== */
+
+        localStorage.setItem(
+            "lastOrderId",
+            orderRef.id
+        );
+
+
+        /* ==================================================
+           WHATSAPP MESSAGE
+        ================================================== */
 
         let message =
 `🛒 *NEW ORDER*
@@ -342,55 +611,90 @@ window.placeOrder = async function(){
 `;
 
 
-        cart.forEach(item => {
+        products.forEach(item => {
 
             message +=
-`\n• ${item.name}
+`\n• *${item.name}*
 Qty: ${item.qty}
 Price: ₹${item.price}
-Subtotal: ₹${item.price * item.qty}
+Subtotal: ₹${item.subtotal}
 `;
 
         });
 
 
         message +=
-`\n💰 *TOTAL: ₹${total}*
+`
+💰 *TOTAL: ₹${total}*
 
-🆔 Order ID:
+🆔 *Order ID:*
 ${orderRef.id}
 
+📦 *Status:* Pending
+
 Please confirm my order.
-Thank you!`;
 
+Thank you!
+`;
 
-        /* CLEAR CART */
-
-        localStorage.removeItem("cart");
-
-
-        /* OPEN WHATSAPP */
 
         const whatsappURL =
-        "https://wa.me/919390922530?text=" +
-        encodeURIComponent(message);
+            "https://wa.me/919390922530?text=" +
+            encodeURIComponent(
+                message
+            );
 
 
-        window.open(
-            whatsappURL,
-            "_blank"
+        /* ==================================================
+           OPEN WHATSAPP
+        ================================================== */
+
+        if(
+            whatsappWindow &&
+            !whatsappWindow.closed
+        ){
+
+            whatsappWindow.location.href =
+                whatsappURL;
+
+        }
+
+        else{
+
+            /*
+             If browser blocked the popup,
+             use normal navigation.
+            */
+
+            window.location.href =
+                whatsappURL;
+
+        }
+
+
+        /* ==================================================
+           CLEAR CART
+        ================================================== */
+
+        localStorage.removeItem(
+            "cart"
         );
 
 
-        /* SUCCESS PAGE */
+        /* ==================================================
+           GO SUCCESS PAGE
+        ================================================== */
 
-        setTimeout(() => {
+        setTimeout(
+            function(){
 
-            window.location.replace(
-                "success.html"
-            );
+                window.location.replace(
+                    "success.html"
+                );
 
-        }, 1000);
+            },
+            1500
+        );
 
 
     }
@@ -403,93 +707,106 @@ Thank you!`;
         );
 
 
-        alert(
-            "Order save failed.\n\n" +
-            "Please try again."
-        );
+        /* ================= CLOSE EMPTY WHATSAPP ================= */
+
+        if(
+            whatsappWindow &&
+            !whatsappWindow.closed
+        ){
+
+            try{
+
+                whatsappWindow.close();
+
+            }
+
+            catch(closeError){
+
+                console.log(
+                    "Popup close error:",
+                    closeError
+                );
+
+            }
+
+        }
 
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
         button.innerText =
-        "Place Order";
+            "Place Order";
+
 
         loading.style.display =
-        "none";
+            "none";
+
+
+        showError(
+            "Order save failed. Please check your internet connection and try again."
+        );
 
     }
 
 };
 
 
-/* DISPLAY CART */
+/* ==================================================
+   ERROR FUNCTION
+================================================== */
 
-const cart =
-JSON.parse(
-    localStorage.getItem("cart")
-) || [];
+function showError(message){
 
+    errorBox.innerText =
+        "❌ " + message;
 
-const orderSummary =
-document.getElementById(
-    "orderSummary"
-);
-
-const orderTotal =
-document.getElementById(
-    "orderTotal"
-);
-
-
-let total = 0;
-
-
-if(cart.length === 0){
-
-    orderSummary.innerHTML =
-    "<p>Your cart is empty.</p>";
-
-}
-else{
-
-    cart.forEach(item => {
-
-        const subtotal =
-        Number(item.price) *
-        Number(item.qty);
-
-        total += subtotal;
-
-
-        orderSummary.innerHTML += `
-
-        <div class="product-row">
-
-            <b>${item.name}</b>
-
-            <br>
-
-            ₹${item.price}
-            ×
-            ${item.qty}
-
-            =
-            ₹${subtotal}
-
-        </div>
-
-        `;
-
-    });
+    errorBox.style.display =
+        "block";
 
 }
 
 
-orderTotal.innerText =
-total;
+/* ==================================================
+   HTML ESCAPE
+================================================== */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
 
 </script>
 
+
 </body>
 
-  </html>
+</html>
