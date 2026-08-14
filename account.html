@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    My Account | ANIL KUMAR DAIRY FARMS
+</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    font-family:Arial,sans-serif;
+
+    background:#f5fff5;
+
+    color:#222;
+
+    padding:20px;
+
+}
+
+.container{
+
+    max-width:650px;
+
+    margin:auto;
+
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+
+    background:#0B6623;
+
+    color:white;
+
+    padding:25px 20px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.12);
+
+}
+
+.header h1{
+
+    margin:0;
+
+    font-size:28px;
+
+}
+
+.header p{
+
+    margin:8px 0 0;
+
+}
+
+
+/* ================= ACCOUNT ================= */
+
+.account-card{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.10);
+
+}
+
+.account-card h2{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+}
+
+
+/* ================= INFO ================= */
+
+.info{
+
+    padding:14px 0;
+
+    border-bottom:1px solid #eee;
+
+    line-height:1.5;
+
+}
+
+.info:last-child{
+
+    border-bottom:none;
+
+}
+
+.info strong{
+
+    color:#0B6623;
+
+}
+
+
+/* ================= BUTTONS ================= */
+
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0B6623;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+.logout{
+
+    background:#d32f2f;
+
+}
+
+
+/* ================= ORDERS ================= */
+
+.orders{
+
+    background:white;
+
+    margin-top:20px;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.10);
+
+}
+
+.orders h2{
+
+    color:#0B6623;
+
+    margin-top:0;
+
+}
+
+.order{
+
+    border:1px solid #ddd;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-top:12px;
+
+}
+
+.order-id{
+
+    color:#0B6623;
+
+    font-weight:bold;
+
+}
+
+.status{
+
+    display:inline-block;
+
+    margin-top:8px;
+
+    padding:6px 10px;
+
+    background:#fff3cd;
+
+    color:#856404;
+
+    border-radius:7px;
+
+    font-weight:bold;
+
+    font-size:13px;
+
+}
+
+.track{
+
+    display:block;
+
+    margin-top:10px;
+
+    padding:10px;
+
+    text-align:center;
+
+    background:#0B6623;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+}
+
+
+/* ================= LOADING ================= */
+
+.loading{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#777;
+
+}
+
+
+/* ================= ERROR ================= */
+
+.error{
+
+    text-align:center;
+
+    color:#b00000;
+
+    padding:20px;
+
+}
+
+
+/* ================= BACK ================= */
+
+.back{
+
+    display:block;
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#555;
+
+    text-decoration:none;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:500px){
+
+    body{
+
+        padding:12px;
+
+    }
+
+    .account-card,
+    .orders{
+
+        padding:18px;
+
+    }
+
+    .header h1{
+
+        font-size:24px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            👤 My Account
+        </h1>
+
+        <p>
+            ANIL KUMAR DAIRY FARMS
+        </p>
+
+    </div>
+
+
+    <!-- ACCOUNT -->
+
+    <div class="account-card">
+
+        <h2>
+            👋 Welcome
+        </h2>
+
+
+        <div class="info">
+
+            👤
+
+            <strong>
+                Name:
+            </strong>
+
+            <span id="customerName">
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="info">
+
+            📧
+
+            <strong>
+                Email:
+            </strong>
+
+            <span id="customerEmail">
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="info">
+
+            📱
+
+            <strong>
+                Phone:
+            </strong>
+
+            <span id="customerPhone">
+                Loading...
+            </span>
+
+        </div>
+
+
+        <button
+            onclick="goShopping()"
+        >
+
+            🛒 Continue Shopping
+
+        </button>
+
+
+        <button
+            class="logout"
+            onclick="logoutUser()"
+        >
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
+
+    <!-- ORDERS -->
+
+    <div class="orders">
+
+        <h2>
+            📦 My Orders
+        </h2>
+
+
+        <div id="ordersList">
+
+            <div class="loading">
+
+                🔄 Loading your orders...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back"
+    >
+
+        ← Back to Website
+
+    </a>
+
+
+</div>
+
+
+<script type="module">
+
+
+/* ================= FIREBASE ================= */
+
+import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+
+    getAuth,
+
+    onAuthStateChanged,
+
+    signOut
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+
+    collection,
+
+    getDocs,
+
+    query,
+
+    where
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain:
+    "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId:
+    "anil-kumar-dairy-farms",
+
+    storageBucket:
+    "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId:
+    "698324008132",
+
+    appId:
+    "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId:
+    "G-42C7RVB715"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+/* ================= ELEMENTS ================= */
+
+const customerName =
+    document.getElementById(
+        "customerName"
+    );
+
+const customerEmail =
+    document.getElementById(
+        "customerEmail"
+    );
+
+const customerPhone =
+    document.getElementById(
+        "customerPhone"
+    );
+
+const ordersList =
+    document.getElementById(
+        "ordersList"
+    );
+
+
+/* ================= AUTH ================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    async(user)=>{
+
+        if(!user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        customerName.innerText =
+            user.displayName ||
+            localStorage.getItem(
+                "customerName"
+            ) ||
+            "Customer";
+
+
+        customerEmail.innerText =
+            user.email ||
+            "Not available";
+
+
+        customerPhone.innerText =
+            localStorage.getItem(
+                "customerPhone"
+            ) ||
+            "Not available";
+
+
+        await loadMyOrders(
+            user
+        );
+
+    }
+
+);
+
+
+/* ================= ORDERS ================= */
+
+async function loadMyOrders(user){
+
+    try{
+
+        const ordersRef =
+            collection(
+                db,
+                "orders"
+            );
+
+
+        /*
+         IMPORTANT:
+
+         Existing orders currently
+         don't store Firebase user UID.
+
+         Therefore we use customer email
+         only when available in future.
+
+        */
+
+        const ordersSnapshot =
+            await getDocs(
+                ordersRef
+            );
+
+
+        const myOrders = [];
+
+
+        ordersSnapshot.forEach(
+            document=>{
+
+                const order =
+                    document.data();
+
+
+                /*
+                 Match by email if your
+                 future orders contain email.
+                */
+
+                if(
+                    order.email &&
+                    user.email &&
+                    order.email.toLowerCase()
+                    ===
+                    user.email.toLowerCase()
+                ){
+
+                    myOrders.push({
+
+                        id:
+                            document.id,
+
+                        ...order
+
+                    });
+
+                }
+
+            }
+        );
+
+
+        if(myOrders.length === 0){
+
+            ordersList.innerHTML = `
+
+                <div class="loading">
+
+                    📦 No orders found yet.
+
+                    <br><br>
+
+                    Start shopping and place
+                    your first order!
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        myOrders.sort(
+            (a,b)=>{
+
+                const aTime =
+                    a.createdAt?.toMillis
+                    ? a.createdAt.toMillis()
+                    : 0;
+
+                const bTime =
+                    b.createdAt?.toMillis
+                    ? b.createdAt.toMillis()
+                    : 0;
+
+                return bTime - aTime;
+
+            }
+        );
+
+
+        ordersList.innerHTML =
+            "";
+
+
+        myOrders.forEach(
+            order=>{
+
+                const status =
+                    order.status ||
+                    "Pending";
+
+
+                ordersList.innerHTML += `
+
+                    <div class="order">
+
+                        <div class="order-id">
+
+                            🆔 Order ID:
+
+                            ${escapeHTML(
+                                order.id
+                            )}
+
+                        </div>
+
+
+                        <div>
+
+                            💰 Total:
+
+                            ₹${
+                                Number(
+                                    order.total
+                                ) || 0
+                            }
+
+                        </div>
+
+
+                        <div>
+
+                            💳 Payment:
+
+                            ${escapeHTML(
+                                order.payment ||
+                                "Not specified"
+                            )}
+
+                        </div>
+
+
+                        <span class="status">
+
+                            ${escapeHTML(
+                                status
+                            )}
+
+                        </span>
+
+
+                        <a
+                            class="track"
+                            href="track-order.html?orderId=${encodeURIComponent(order.id)}"
+                        >
+
+                            📦 Track Order
+
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Orders error:",
+            error
+        );
+
+
+        ordersList.innerHTML = `
+
+            <div class="error">
+
+                ❌ Unable to load your orders.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+window.logoutUser =
+async function(){
+
+    try{
+
+        await signOut(
+            auth
+        );
+
+
+        localStorage.removeItem(
+            "customerName"
+        );
+
+        localStorage.removeItem(
+            "customerPhone"
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
+
+};
+
+
+/* ================= SHOPPING ================= */
+
+window.goShopping =
+function(){
+
+    window.location.href =
+        "index.html";
+
+};
+
+
+/* ================= ESCAPE ================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+
+  </html>
