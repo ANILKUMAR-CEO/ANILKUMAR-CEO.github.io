@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Customer Sign Up | ANIL KUMAR DAIRY FARMS</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    font-family:Arial,sans-serif;
+    background:#f5fff5;
+}
+
+.signup-box{
+    width:100%;
+    max-width:430px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.logo img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
+
+h1{
+    text-align:center;
+    color:#0B6623;
+    margin:5px 0;
+}
+
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#0B6623;
+    box-shadow:0 0 0 2px rgba(11,102,35,.08);
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    background:#0B6623;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    background:#888;
+    cursor:not-allowed;
+}
+
+.error{
+    margin-top:15px;
+    text-align:center;
+    color:#c00000;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+.success{
+    margin-top:15px;
+    text-align:center;
+    color:#0B6623;
+    font-weight:bold;
+}
+
+.links{
+    margin-top:20px;
+    text-align:center;
+}
+
+.links p{
+    color:#666;
+}
+
+.links a{
+    color:#0B6623;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.back{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    color:#555;
+    text-decoration:none;
+}
+
+.password-info{
+    margin-top:8px;
+    font-size:13px;
+    color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="signup-box">
+
+    <div class="logo">
+
+        <img
+            src="images/logo.png"
+            alt="ANIL KUMAR DAIRY FARMS"
+        >
+
+    </div>
+
+    <h1>
+        Create Account
+    </h1>
+
+    <p class="subtitle">
+        ANIL KUMAR DAIRY FARMS
+    </p>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Full Name"
+        autocomplete="name"
+    >
+
+    <input
+        type="tel"
+        id="phone"
+        placeholder="Phone Number"
+        autocomplete="tel"
+    >
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email Address"
+        autocomplete="email"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        autocomplete="new-password"
+    >
+
+    <div class="password-info">
+        Password must contain at least 6 characters.
+    </div>
+
+    <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Confirm Password"
+        autocomplete="new-password"
+    >
+
+    <button
+        id="signupBtn"
+        onclick="createAccount()"
+    >
+        👤 Create Account
+    </button>
+
+    <div
+        id="message"
+        class="error"
+    ></div>
+
+    <div class="links">
+
+        <p>
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Back to Website
+    </a>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDSythwm5e2Q96rDBu4JDdUItAN6nXWW3Q",
+
+    authDomain:
+    "anil-kumar-dairy-farms.firebaseapp.com",
+
+    projectId:
+    "anil-kumar-dairy-farms",
+
+    storageBucket:
+    "anil-kumar-dairy-farms.firebasestorage.app",
+
+    messagingSenderId:
+    "698324008132",
+
+    appId:
+    "1:698324008132:web:aaf2b196d4f21c30c91d91",
+
+    measurementId:
+    "G-42C7RVB715"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+    getAuth(app);
+
+
+window.createAccount =
+async function(){
+
+    const name =
+        document
+        .getElementById("name")
+        .value
+        .trim();
+
+    const phone =
+        document
+        .getElementById("phone")
+        .value
+        .trim();
+
+    const email =
+        document
+        .getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+    const confirmPassword =
+        document
+        .getElementById("confirmPassword")
+        .value;
+
+    const message =
+        document
+        .getElementById("message");
+
+    const button =
+        document
+        .getElementById("signupBtn");
+
+
+    message.innerText =
+        "";
+
+    message.className =
+        "error";
+
+
+    /* VALIDATION */
+
+    if(
+        !name ||
+        !phone ||
+        !email ||
+        !password ||
+        !confirmPassword
+    ){
+
+        message.innerText =
+            "❌ Please fill all details.";
+
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        message.innerText =
+            "❌ Password must contain at least 6 characters.";
+
+        return;
+
+    }
+
+
+    if(
+        password !==
+        confirmPassword
+    ){
+
+        message.innerText =
+            "❌ Passwords do not match.";
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+    button.innerText =
+        "Creating Account...";
+
+
+    try{
+
+        /* CREATE FIREBASE ACCOUNT */
+
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const user =
+            userCredential.user;
+
+
+        /* SAVE CUSTOMER NAME */
+
+        await updateProfile(
+            user,
+            {
+                displayName:name
+            }
+        );
+
+
+        /* SAVE BASIC CUSTOMER DATA */
+
+        localStorage.setItem(
+            "customerName",
+            name
+        );
+
+        localStorage.setItem(
+            "customerPhone",
+            phone
+        );
+
+
+        message.className =
+            "success";
+
+        message.innerText =
+            "✅ Account created successfully!";
+
+
+        /* REDIRECT */
+
+        setTimeout(()=>{
+
+            window.location.href =
+                "index.html";
+
+        },1000);
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Signup error:",
+            error
+        );
+
+
+        if(
+            error.code ===
+            "auth/email-already-in-use"
+        ){
+
+            message.innerText =
+                "❌ This email is already registered. Please login.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/invalid-email"
+        ){
+
+            message.innerText =
+                "❌ Please enter a valid email address.";
+
+        }
+
+        else if(
+            error.code ===
+            "auth/weak-password"
+        ){
+
+            message.innerText =
+                "❌ Password is too weak.";
+
+        }
+
+        else{
+
+            message.innerText =
+                "❌ Account creation failed. Please try again.";
+
+        }
+
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            "👤 Create Account";
+
+    }
+
+};
+
+</script>
+
+</body>
+
+  </html>
